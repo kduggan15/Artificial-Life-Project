@@ -5,7 +5,8 @@ import java.util.Random;
 
 public class Grid
 {
-    private GridObject [][] board = new GridObject[16][16];
+    private final int GRIDSIZE = 32;
+    private GridObject [][] board = new GridObject[GRIDSIZE][GRIDSIZE];
     private HashSet<GridObject> acted = new HashSet<>();
     private int turnCount;
     private boolean paused;

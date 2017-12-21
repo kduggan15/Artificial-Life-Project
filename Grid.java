@@ -9,6 +9,11 @@ public class Grid
     private int turnCount;
     private boolean paused;
 
+    public Grid()
+    {
+
+    }
+
     public boolean extinction()
     {
         for(int i = 0; i < GRIDSIZE; i++)
@@ -17,6 +22,11 @@ public class Grid
                     return false;
         return true;
 
+    }
+
+    public Cell getCell(int i, int j)
+    {
+        return board[i][j];
     }
 
     public void daytime()
@@ -35,7 +45,7 @@ public class Grid
         }
         while(!mustAct.isEmpty())
         {
-            mustAct.get(0).act();
+            mustAct.get(0).live();
             mustAct.remove(0);
         }
         
@@ -50,7 +60,7 @@ public class Grid
         }
         while(!mustAct.isEmpty())
         {
-            mustAct.get(0).act();
+            mustAct.get(0).live();
             mustAct.remove(0);
         }
         
@@ -65,7 +75,7 @@ public class Grid
         }
         while(!mustAct.isEmpty())
         {
-            mustAct.get(0).act();
+            mustAct.get(0).live();
             mustAct.remove(0);
         }
         
@@ -78,7 +88,7 @@ public class Grid
     @Override
     public String toString()
     {
-        String output = "Day " + turncount + "\n";
+        String output = "Day " + turnCount + "\n";
         for(int i = 0; i < GRIDSIZE; i++)
             output += "--";
         output += "\n";
@@ -86,8 +96,8 @@ public class Grid
         {
             for(int j = 0; j < GRIDSIZE; j++)
             {
-                if(board[i][j] instanceof Organism)
-                    output += board[i][j].symbol + " ";
+                if(board[i][j].getInhabitant() instanceof Organism)
+                    output += board[i][j].getInhabitant().symbol + " ";
                 else
                     output += "  ";
             }

@@ -17,4 +17,14 @@ public class Cell
     {
         return inhabitant;
     }
+
+    public void setInhabitant(Organism inhabitant)
+    {
+        this.inhabitant = inhabitant;
+    }
+
+    public Grid getMyGrid()
+    {
+        return myGrid;
+    }
 }

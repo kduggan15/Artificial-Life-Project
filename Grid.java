@@ -1,7 +1,6 @@
-package com.company;
-
 import java.util.HashSet;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Grid
 {
@@ -14,7 +13,7 @@ public class Grid
     public void daytime()
     {
         // Initialize ArrayList mustAct
-        ArrayList<Organism> mustAct = newArrayList<Organism>();
+        ArrayList<Organism> mustAct = new ArrayList<>();
         
         // Carnivores are gathered, then act
         for(int i = 0; i < GRIDSIZE; i++)

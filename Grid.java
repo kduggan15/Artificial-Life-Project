@@ -50,11 +50,41 @@ public class Grid
 
     }
 
-    public void moveAnimal(Location a, Location b)
+    public void moveAnimal(Cell a, Cell b)
     {
-        board[b.getX(), b.getY()].setInhabitant( 
-            board[a.getX(), a.getY()].getInhabitant() ); // Moves animal's reference from a to b
-        board[a.getX(), a.getY()].empty(); // Removes animal's reference from a
+        a.setInhabitant(b.getInhabitant() ); // Moves animal's reference from a to b
+        b.empty(); // Removes animal's reference from a
+    }
+    
+    public ArrayList<Cell> getAdjacentCells(Cell a)
+    {
+        int x = a.getLocation().getX();
+        int y = a.getLocation().getY();
+        int max = GRIDSIZE - 1;
+        ArrayList<Cell> result;
+        
+        if(x != 0)
+        {
+            if(y != 0)
+                result.add(board[x - 1][y - 1]);
+            result.add(board[x - 1][y]);
+            if(y !=  max)
+                result.add(board[x - 1][y + 1]);
+        }
+        if(x != max)
+        {
+            if(y != 0)
+                result.add(board[x + 1][y - 1]);
+            result.add(board[x + 1][y]);
+            if(y != max)
+                result.add(board[x + 1][y + 1]);
+        }
+        if(y != 0)
+            result.add(board[x][y - 1]);
+        if(y != max)
+            result.add(board[x][y + 1]);
+        
+        return result;
     }
 
     public void daytime()

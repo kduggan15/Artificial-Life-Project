@@ -23,3 +23,18 @@ public class Location
         this.y = y;
     }
 }
+
+public ArrayList<Location> getAdjacents()
+    {
+        ArrayList<Location> temp = new ArrayList<Location>();
+        temp.add(new Location(x+1,y));
+        temp.add(new Location(x-1,y));
+        temp.add(new Location(x,y+1));
+        temp.add(new Location(x,y-1));
+
+        temp.add(new Location(x+1,y+1));
+        temp.add(new Location(x-1,y-1));
+        temp.add(new Location(x-1,y+1));
+        temp.add(new Location(x+1,y-1));
+        return temp;
+    }

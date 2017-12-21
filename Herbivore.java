@@ -5,4 +5,8 @@ public class Herbivore extends Animal{
         symbol = '&';
     }
 
+    public void act()
+    {
+
+    }
 }

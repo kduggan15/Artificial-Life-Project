@@ -6,4 +6,8 @@ public class Carnivore extends Animal
         symbol = '@';
     }
 
+    public void act()
+    {
+
+    }
 }

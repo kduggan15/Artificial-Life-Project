@@ -50,9 +50,11 @@ public class Grid
 
     }
 
-    public Cell getCell(Location L)
+    public void moveAnimal(Location a, Location b)
     {
-        return board[L.getX()][L.getY()];
+        board[b.getX(), b.getY()].setInhabitant( 
+            board[a.getX(), a.getY()].getInhabitant() ); // Moves animal's reference from a to b
+        board[a.getX(), a.getY()].empty(); // Removes animal's reference from a
     }
 
     public void daytime()

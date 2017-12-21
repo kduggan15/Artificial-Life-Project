@@ -1,28 +1,36 @@
-package com.company;
-
 import java.util.HashSet;
 import java.util.Random;
+import java.util.*;
 
 public class Grid
 {
     private final int GRIDSIZE = 32;
-    private Organism [][] board = new Organism[GRIDSIZE][GRIDSIZE];
-    // private HashSet<GridObject> acted = new HashSet<>();
+    private Cell [][] board = new Cell[GRIDSIZE][GRIDSIZE];
     private int turnCount;
     private boolean paused;
-    
+
+    public boolean extinction()
+    {
+        for(int i = 0; i < GRIDSIZE; i++)
+            for(int j = 0; j < GRIDSIZE; j++)
+                if(board[i][j].getInhabitant() != null)
+                    return false;
+        return true;
+
+    }
+
     public void daytime()
     {
         // Initialize ArrayList mustAct
-        ArrayList<Organism> mustAct = newArrayList<Organism>();
+        ArrayList<Organism> mustAct = new ArrayList<Organism>();
         
         // Carnivores are gathered, then act
         for(int i = 0; i < GRIDSIZE; i++)
         {
             for(int j = 0; j < GRIDSIZE; j++)
             {
-                if(board[i][j] instanceof Carnivore)
-                    mustAct.add(board[i][j]);
+                if(board[i][j].getInhabitant() instanceof Carnivore)
+                    mustAct.add(board[i][j].getInhabitant());
             }
         }
         while(!mustAct.isEmpty())
@@ -36,8 +44,8 @@ public class Grid
         {
             for(int j = 0; j < GRIDSIZE; j++)
             {
-                if(board[i][j] instanceof Herbivore)
-                    mustAct.add(board[i][j]);
+                if(board[i][j].getInhabitant() instanceof Herbivore)
+                    mustAct.add(board[i][j].getInhabitant());
             }
         }
         while(!mustAct.isEmpty())
@@ -51,8 +59,8 @@ public class Grid
         {
             for(int j = 0; j < GRIDSIZE; j++)
             {
-                if(board[i][j] instanceof Plant)
-                    mustAct.add(board[i][j]);
+                if(board[i][j].getInhabitant() instanceof Plant)
+                    mustAct.add(board[i][j].getInhabitant());
             }
         }
         while(!mustAct.isEmpty())

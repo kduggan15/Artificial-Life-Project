@@ -34,4 +34,9 @@ public class Cell
     {
         return myGrid;
     }
+    
+    public Location getLocation()
+    {
+        return location;
+    }
 }

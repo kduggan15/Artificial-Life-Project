@@ -3,7 +3,7 @@ public class GridTest
     public static void main(String[] args)
     {
         Grid world = new Grid();
-        while(!world.extinction())
+        for(int i = 0; i < 50; i++)
         {
             world.daytime();
             System.out.println(world.toString());

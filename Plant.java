@@ -1,9 +1,8 @@
-public class Plant extends Organism{
-    static public double sproutRate = 0.75;
-
-    public Plant(int x, int y)
+public class Plant extends Organism
+{
+    public Plant(Cell myCell, int x, int y)
     {
-        myLocation.set(x,y);
+        super(myCell, x, y);
         age = 0;
         energy = 20;
         symbol = '#';

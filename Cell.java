@@ -22,6 +22,11 @@ public class Cell
     {
         this.inhabitant = inhabitant;
     }
+    
+    public void empty()
+    {
+        inhabitant = null;
+    }
 
     public Grid getMyGrid()
     {

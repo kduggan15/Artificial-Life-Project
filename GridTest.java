@@ -8,5 +8,6 @@ public class GridTest
             System.out.println(world.toString());
             world.daytime();
         }
+        System.out.println(world.summarizeStatistics());
     }
 }

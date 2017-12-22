@@ -33,7 +33,7 @@ public class DNA
     }
 
     // Computes the strength of this DNA.
-    public double getDNAStrength()
+    public double computeDNAStrength()
     {
         return (dailyEnergyMultiplier + lifeSpanMultiplier) / 2;
     }

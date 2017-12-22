@@ -15,12 +15,30 @@ public class Grid
     // The spawn rates of the ecosystem. A balanced ecosystem is a good one!
     private int plantChance = 30;
     private int plantDailyChance = 1;
-    private int rabbitChance = 10;
-    private int foxChance = 5;
-    private int wolfChance = 3;
+    private int rabbitChance = 20;
+    private int foxChance = 10;
+    private int wolfChance = 7;
+    private int lionChance = 5;
+
+    // Some fun statistics.
+    private int plantsEaten;
+    private int rabbitsMunched;
+    private int foxesDevoured;
+    private int wolvesFeastedOn;
+
+    public void initializeStatistics()
+    {
+        // Initialize statistics.
+        plantsEaten = 0;
+        rabbitsMunched = 0;
+        foxesDevoured = 0;
+        wolvesFeastedOn = 0;
+    }
 
     public Grid()
     {
+        initializeStatistics();
+
         for(int i = 0; i < GRIDSIZE; i++)
         {
             for(int j = 0; j < GRIDSIZE; j++)
@@ -46,6 +64,10 @@ public class Grid
                 {
                     board[i][j].setInhabitant(new Wolf(board[i][j]));
                 }
+                else if(random.nextInt(100) < lionChance)
+                {
+                    board[i][j].setInhabitant(new Lion(board[i][j]));
+                }
             }
         }
     }
@@ -65,6 +87,18 @@ public class Grid
     {
         b.setInhabitant(a.getInhabitant()); // Moves animal's reference from a to b
         a.empty(); // Removes animal's reference from a
+    }
+
+    public void updateStatistics(String consumed)
+    {
+        if(consumed == "Plant")
+            plantsEaten += 1;
+        else if(consumed == "Rabbit")
+            rabbitsMunched += 1;
+        else if(consumed == "Fox")
+            foxesDevoured += 1;
+        else if(consumed == "Wolf")
+            wolvesFeastedOn += 1;
     }
     
     // Returns the Cells adjacent to Cell a.
@@ -163,7 +197,17 @@ public class Grid
         // Day count incremented.
         turnCount += 1;
     }
-        
+
+    public String summarizeStatistics()
+    {
+        String output = "";
+        output += (plantsEaten + " plants were eaten.\n");
+        output += (rabbitsMunched + " rabbits were munched.\n");
+        output += (foxesDevoured + " foxes were devoured.\n");
+        output += (wolvesFeastedOn + " wolves were feasted on.\n");
+        return output;
+    }
+
     // Returns a String representation of the whole ecosystem.
     @Override
     public String toString()

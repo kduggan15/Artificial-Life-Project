@@ -65,7 +65,7 @@ public abstract class Animal extends Organism
             Cell chosen;
             
             // If there are no nearby empty Cells to move to, or this Animal is hungry, choose a nearby prey to consume.
-            if(surroundings.size() == 0 || prioritizePrey())
+            if(surroundings.size() == 0 || (nearbyPrey.size() != 0 && prioritizePrey()))
             {
                 chosen = nearbyPrey.get(random.nextInt(nearbyPrey.size()));
             }
@@ -74,6 +74,12 @@ public abstract class Animal extends Organism
                 chosen = surroundings.get(random.nextInt(surroundings.size()));
             }
             
+            // Record statistical data.
+            if(energyFromConsuming(chosen) != 0)
+            {
+                myCell.getMyGrid().updateStatistics(chosen.getInhabitant().getClass().getName());
+            }
+
             // If the chosen Cell contained prey, add the appropriate amount of energy to this predator.
             energy += energyFromConsuming(chosen);
             chosen.empty();
@@ -82,7 +88,7 @@ public abstract class Animal extends Organism
         }
     }
     
-    // Returns true if the Animal is at risk of dying within 3 days of not finding food.
+    // Returns true if the Animal is at risk of dying within 3 days of not finding food, even if there is no nearby food.
     public boolean prioritizePrey()
     {
         if(energy <= energyToAct * 3)
@@ -117,7 +123,7 @@ public abstract class Animal extends Organism
         int chosenIndex = 0;
         for(int i = 1; i < input.size(); i++)
         {
-            if(((Animal)input.get(i)).getDNA().getDNAStrength() > ((Animal)input.get(i)).getDNA().getDNAStrength())
+            if(((Animal)input.get(i)).getDNA().computeDNAStrength() > ((Animal)input.get(i)).getDNA().computeDNAStrength())
                 chosenIndex = i;
         }
         return input.get(chosenIndex).myCell;

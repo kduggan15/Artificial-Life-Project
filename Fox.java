@@ -34,7 +34,6 @@ public class Fox extends Animal
     {
         if(a.getInhabitant() instanceof Rabbit)
         {
-            System.out.println("A fox is going to eat a rabbit!");
             return 30;
         }
         return 0;

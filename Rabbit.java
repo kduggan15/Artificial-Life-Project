@@ -34,7 +34,6 @@ public class Rabbit extends Animal
     {
         if(a.getInhabitant() instanceof Plant)
         {
-            System.out.println("A rabbit is going to eat some lettuce!");
             return 20;
         }
         return 0;

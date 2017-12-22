@@ -6,7 +6,7 @@ public class Plant extends Organism
         age = 0;
         energy = 20;
         symbol = '#';
-        lifeSpan = 40;
+        lifeSpan = 30;
     }
 
     public void act()

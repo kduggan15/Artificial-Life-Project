@@ -1,17 +1,16 @@
 public abstract class Organism {
+    protected Cell myCell;
     protected int energy;
     protected int age;
     protected char symbol;
-    protected Cell myCell;
-    protected Location myLocation;
+    
     protected int lifeSpan;
     protected boolean alive;
 
-    public Organism(Cell myCell, int x, int y)
+    public Organism(Cell myCell)
     {
         alive = true;
         this.myCell = myCell;
-        myLocation = new Location(x, y);
     }
 
     public void live()

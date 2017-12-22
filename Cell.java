@@ -1,10 +1,10 @@
 public class Cell
 {
 
-    public enum Terrain { PLAINS, MOUNTAINS, WATER; }
-    private final Grid myGrid;
+    public enum Terrain { PLAINS, MOUNTAINS, ROCKS; }
+    private Grid myGrid;
     private final Terrain terrain;
-    private final Location location;
+    private Location location;
     private Organism inhabitant;
 
     public Cell(Grid myGrid, Terrain terrain, Location location)
@@ -38,5 +38,10 @@ public class Cell
     public Location getLocation()
     {
         return location;
+    }
+
+    public Terrain getTerrain()
+    {
+        return terrain;
     }
 }

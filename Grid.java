@@ -8,9 +8,9 @@ public class Grid
     private Cell [][] board = new Cell[GRIDSIZE][GRIDSIZE];
     private int turnCount;
     private boolean paused;
-    private int plantChance = 40;
-    private int plantDailyChance = 3;
-    private int herbivoreChance = 20;
+    private int plantChance = 30;
+    private int plantDailyChance = 1;
+    private int herbivoreChance = 10;
     private int carnivoreChance = 10;
 
     public Grid()
@@ -21,39 +21,36 @@ public class Grid
             for(int j = 0; j < GRIDSIZE; j++)
             {
                 board[i][j] = new Cell(this, Cell.Terrain.PLAINS, new Location(i,j));
-                Random r = new Random();
-                double roll = r.nextInt(100);
-                if(r.nextInt(100) < plantChance)
+                Random random = new Random();
+                if(random.nextInt(100) < plantChance)
                 {
                     board[i][j].setInhabitant(new Plant(board[i][j]));
                 }
-                else if(r.nextInt(100) < herbivoreChance)
+                else if(random.nextInt(100) < herbivoreChance)
                 {
                     board[i][j].setInhabitant(new Rabbit(board[i][j]));
                 }
-                else if(r.nextInt(100) < carnivoreChance)
+                else if(random.nextInt(100) < carnivoreChance)
                 {
 
                 }
-
             }
         }
     }
 
-    public boolean extinction()
+    public boolean allAnimalsHaveDied()
     {
         for(int i = 0; i < GRIDSIZE; i++)
             for(int j = 0; j < GRIDSIZE; j++)
-                if(board[i][j].getInhabitant() != null)
+                if(board[i][j].getInhabitant() instanceof Animal)
                     return false;
         return true;
-
     }
 
     public void moveAnimal(Cell a, Cell b)
     {
-        a.setInhabitant(b.getInhabitant() ); // Moves animal's reference from a to b
-        b.empty(); // Removes animal's reference from a
+        b.setInhabitant(a.getInhabitant()); // Moves animal's reference from a to b
+        a.empty(); // Removes animal's reference from a
     }
     
     public ArrayList<Cell> getAdjacentCells(Cell a)
@@ -61,7 +58,7 @@ public class Grid
         int x = a.getLocation().getX();
         int y = a.getLocation().getY();
         int max = GRIDSIZE - 1;
-        ArrayList<Cell> result;
+        ArrayList<Cell> result = new ArrayList<Cell>();
         
         if(x != 0)
         {
@@ -87,6 +84,24 @@ public class Grid
         return result;
     }
 
+    public void spawnPlants()
+    {
+        for(int i = 0; i < GRIDSIZE; i++)
+        {
+            for (int j = 0; j < GRIDSIZE; j++)
+            {
+                if(board[i][j].getInhabitant() == null)
+                {
+                    Random random = new Random();
+                    if (random.nextInt(100) < plantDailyChance)
+                    {
+                        board[i][j].setInhabitant(new Plant(board[i][j]));
+                    }
+                }
+            }
+        }
+    }
+
     public void daytime()
     {
         // Initialize ArrayList mustAct
@@ -103,12 +118,13 @@ public class Grid
                 }
             }
         }
-        while(!mustAct.isEmpty())
+        for(int i = 0; i < mustAct.size(); i++)
         {
-            mustAct.get(0).live();
-            mustAct.remove(0);
+            mustAct.get(i).live();
         }
-        
+        mustAct.clear();
+
+
         // Plants that were not devoured by Herbivores age
         for(int i = 0; i < GRIDSIZE; i++)
         {
@@ -118,11 +134,14 @@ public class Grid
                     mustAct.add(board[i][j].getInhabitant());
             }
         }
-        while(!mustAct.isEmpty())
+        for(int i = 0; i < mustAct.size(); i++)
         {
-            mustAct.get(0).live();
-            mustAct.remove(0);
+            mustAct.get(i).live();
         }
+        mustAct.clear();
+
+        // Spawn new plants
+        spawnPlants();
         
         // Day count incremented
         turnCount += 1;

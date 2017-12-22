@@ -1,15 +1,16 @@
 public class Plant extends Organism
 {
-    public Plant(Cell myCell, int x, int y)
+    public Plant(Cell myCell)
     {
-        super(myCell, x, y);
+        super(myCell);
         age = 0;
         energy = 20;
         symbol = '#';
+        lifeSpan = 40;
     }
 
     public void act()
     {
-        age += 1;
+
     }
 }

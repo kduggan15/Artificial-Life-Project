@@ -2,42 +2,156 @@ import java.util.*;
 
 public abstract class Animal extends Organism
 {
-    public Animal(Cell myCell, int x, int y)
+    protected final DNA genetics;
+
+    public Animal(Cell myCell)
     {
-        super(myCell, x, y);
+        super(myCell);
+
+        // Randomly generated DNA
+        genetics = new DNA();
+        lifeSpan = (int) (getAverageLifeSpan() * genetics.getLifeSpanMultiplier());
+        energyToAct = (int) (getAverageEnergyToAct() * genetics.getDailyEnergyMultiplier());
     }
-    public ArrayList<Location> getValidLocations()
+
+    public Animal(Cell myCell, Animal parent1, Animal parent2)
     {
-        ArrayList<Location> possibleMoves = myLocation.getAdjacents();
-        for(int i = 0; i < possibleMoves.size(); i++)
+        super(myCell);
+        genetics = new DNA(parent1.getDNA(), parent2.getDNA());
+        lifeSpan = (int) (getAverageLifeSpan() * genetics.getLifeSpanMultiplier());
+        energyToAct = (int) (getAverageEnergyToAct() * genetics.getDailyEnergyMultiplier());
+    }
+
+    public abstract int getAverageLifeSpan();
+    public abstract int getAverageEnergyToAct();
+    public abstract int energyFromConsuming(Cell a);
+    public abstract boolean readyToMate();
+
+    public DNA getDNA()
+    {
+        return genetics;
+    }
+
+    public void act()
+    {
+        energy -= energyToAct;
+        ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);
+
+        /*
+        ArrayList<Cell> nearbyMates = isolateMates(surroundings);
+        if(readyToMate() && nearbyMates.size() > 0)
         {
-            if(possibleMoves.get(i).getX() < 0 || possibleMoves.get(i).getX() >= Grid.GRIDSIZE ||
-                    possibleMoves.get(i).getY() < 0 || possibleMoves.get(i).getY() >= Grid.GRIDSIZE)
+            // Reproduce
+        }
+        */
+
+        filter(surroundings);
+        Random random = new Random();
+        if(surroundings.size() != 0)
+        {
+            ArrayList<Cell> nearbyPrey = isolatePrey(surroundings);
+            Cell chosen;
+            if(nearbyPrey.size() == 0)
+                chosen = surroundings.get(random.nextInt(surroundings.size()));
+            else
             {
-                possibleMoves.remove(i);
-                i = 0;
+                chosen = nearbyPrey.get(random.nextInt(nearbyPrey.size()));
+            }
+            energy += energyFromConsuming(chosen);
+            myCell.getMyGrid().moveAnimal(myCell, chosen);
+            myCell = chosen;
+        }
+    }
+
+    public void filter(ArrayList<Cell> input)
+    {
+        filterRocks(input);
+        filterOrganisms(input);
+    }
+
+    public ArrayList<Cell> isolateMates(ArrayList<Cell> input)
+    {
+        ArrayList<Cell> nearbyMates = new ArrayList<Cell>();
+        for(int i = 0; i < input.size(); i++)
+        {
+            if(this.getClass().getName().equals( input.get(i).getInhabitant().getClass().getName() ))
+            {
+                nearbyMates.add(input.get(i));
             }
         }
-        return possibleMoves;
+        return nearbyMates;
     }
-    public ArrayList<Location> getEmptyLocations(ArrayList<Location> input)
+
+    public Cell chooseMate(ArrayList<Animal> input)
+    {
+        int chosenIndex = 0;
+        for(int i = 1; i < input.size(); i++)
+        {
+            if(input.get(i).getDNA().getDNAStrength() > input.get(chosenIndex).getDNA().getDNAStrength())
+                chosenIndex = i;
+        }
+        return input.get(chosenIndex).myCell;
+    }
+
+    public ArrayList<Cell> isolatePrey(ArrayList<Cell> input)
+    {
+        ArrayList<Cell> inputCopy = (ArrayList<Cell>) input.clone();
+        for(int i = 0; i < inputCopy.size(); i++)
+        {
+            if(energyFromConsuming(inputCopy.get(i)) == 0)
+            {
+                inputCopy.remove(i);
+                i--;
+            }
+        }
+        return inputCopy;
+    }
+
+    public void filterRocks(ArrayList<Cell> input)
     {
         for(int i = 0; i < input.size(); i++)
         {
-            if(!(myCell.getMyGrid().getCell(input.get(i)).getInhabitant() instanceof Organism))
+            if(input.get(i).getTerrain() == Cell.Terrain.ROCKS)
             {
                 input.remove(i);
-                i = 0;
+                i--;
             }
         }
-        return input;
     }
-    public void move(Location m)
+
+    public void filterMountains(ArrayList<Cell> input)
     {
-        Cell oldCell = myCell;
-        Cell newCell = myCell.getMyGrid().getCell(m);
-        newCell.setInhabitant(this);
-        oldCell.setInhabitant(null);
-        myCell = newCell;
+        for(int i = 0; i < input.size(); i++)
+        {
+            if(input.get(i).getTerrain() == Cell.Terrain.MOUNTAINS)
+            {
+                input.remove(i);
+                i--;
+            }
+        }
+    }
+
+    public void filterOrganisms(ArrayList<Cell> input)
+    {
+        for(int i = 0; i < input.size(); i++)
+        {
+            if(input.get(i).getInhabitant() instanceof Organism)
+            {
+                input.remove(i);
+                i--;
+            }
+        }
+    }
+
+    public void filterAnimals(ArrayList<Cell> input)
+    {
+        for(int i = 0; i < input.size(); i++)
+        {
+            if(input.get(i).getInhabitant() instanceof Animal)
+            {
+                input.remove(i);
+                i--;
+            }
+        }
     }
 }

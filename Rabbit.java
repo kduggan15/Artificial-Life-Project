@@ -2,17 +2,46 @@ import java.util.*;
 
 public class Rabbit extends Animal
 {
-    public Rabbit(Cell myCell, int x, int y)
+    public Rabbit(Cell myCell)
     {
-        super(myCell, x, y);
+        super(myCell);
+        energy = 20;
         symbol = '!';
     }
-    public void act()
+
+    @Override
+    public void filter(ArrayList<Cell> input)
     {
-        age += 1;
-        ArrayList<Location> possibleMoves = getValidLocations();
-        Random r = new Random();
-        Location choice = getEmptyLocations(possibleMoves).get(r.nextInt(possibleMoves.size()));
-        move(choice);
+        filterRocks(input);
+        filterMountains(input);
+        filterAnimals(input);
+    }
+
+    @Override
+    public int getAverageLifeSpan()
+    {
+        return 40;
+    }
+
+    @Override
+    public int getAverageEnergyToAct()
+    {
+        return 4;
+    }
+
+    @Override
+    public int energyFromConsuming(Cell a)
+    {
+        if(a.getInhabitant() instanceof Plant)
+        {
+            return 20;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean readyToMate()
+    {
+        return true;
     }
 }

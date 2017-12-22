@@ -20,16 +20,16 @@ public class Grid
         {
             for(int j = 0; j < GRIDSIZE; j++)
             {
-                board[i][j] = new Cell(this, Cell.Terrain.PLAINS);
+                board[i][j] = new Cell(this, Cell.Terrain.PLAINS, new Location(i,j));
                 Random r = new Random();
                 double roll = r.nextInt(100);
                 if(r.nextInt(100) < plantChance)
                 {
-                    board[i][j].setInhabitant(new Plant(board[i][j], i, j));
+                    board[i][j].setInhabitant(new Plant(board[i][j]));
                 }
                 else if(r.nextInt(100) < herbivoreChance)
                 {
-                    board[i][j].setInhabitant(new Rabbit(board[i][j], i, j));
+                    board[i][j].setInhabitant(new Rabbit(board[i][j]));
                 }
                 else if(r.nextInt(100) < carnivoreChance)
                 {

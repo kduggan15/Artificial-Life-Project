@@ -10,8 +10,9 @@ public class Grid
     private boolean paused;
     private int plantChance = 30;
     private int plantDailyChance = 1;
-    private int herbivoreChance = 10;
-    private int carnivoreChance = 10;
+    private int rabbitChance = 10;
+    private int foxChance = 5;
+    private int wolfChance = 3;
 
     public Grid()
     {
@@ -26,13 +27,17 @@ public class Grid
                 {
                     board[i][j].setInhabitant(new Plant(board[i][j]));
                 }
-                else if(random.nextInt(100) < herbivoreChance)
+                else if(random.nextInt(100) < rabbitChance)
                 {
                     board[i][j].setInhabitant(new Rabbit(board[i][j]));
                 }
-                else if(random.nextInt(100) < carnivoreChance)
+                else if(random.nextInt(100) < foxChance)
                 {
-
+                    board[i][j].setInhabitant(new Fox(board[i][j]));
+                }
+                else if(random.nextInt(100) < wolfChance)
+                {
+                    board[i][j].setInhabitant(new Wolf(board[i][j]));
                 }
             }
         }

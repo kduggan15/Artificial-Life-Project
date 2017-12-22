@@ -7,6 +7,7 @@ public abstract class Organism {
     protected int lifeSpan;
     protected boolean alive;
 
+    // Initializes an Organism that is aware of which Cell it exists in.
     public Organism(Cell myCell)
     {
         alive = true;
@@ -14,6 +15,7 @@ public abstract class Organism {
         this.myCell = myCell;
     }
 
+    // If this Organism hasn't died, calls the act method.
     public void live()
     {
         if(age > lifeSpan || energy < 1)
@@ -24,7 +26,10 @@ public abstract class Organism {
         age += 1;
         act();
     }
+    
     public abstract void act();
+    
+    // Calls the empty() method of this Organism's Cell, removing its reference from the Cell.
     public void die()
     {
         myCell.empty();

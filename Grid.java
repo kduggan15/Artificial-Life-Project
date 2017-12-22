@@ -4,10 +4,15 @@ import java.util.*;
 
 public class Grid
 {
+    // The size of the square ecosystem.
     public static final int GRIDSIZE = 16;
     private Cell [][] board = new Cell[GRIDSIZE][GRIDSIZE];
+    
+    // The number of days that have passed.
     private int turnCount;
     private boolean paused;
+    
+    // The spawn rates of the ecosystem. A balanced ecosystem is a good one!
     private int plantChance = 30;
     private int plantDailyChance = 1;
     private int rabbitChance = 10;
@@ -16,13 +21,15 @@ public class Grid
 
     public Grid()
     {
-        int totalSpaces = GRIDSIZE * GRIDSIZE;
         for(int i = 0; i < GRIDSIZE; i++)
         {
             for(int j = 0; j < GRIDSIZE; j++)
             {
+                // Spawn all cells.
                 board[i][j] = new Cell(this, Cell.Terrain.PLAINS, new Location(i,j));
                 Random random = new Random();
+                
+                // Spawn all Organisms.
                 if(random.nextInt(100) < plantChance)
                 {
                     board[i][j].setInhabitant(new Plant(board[i][j]));
@@ -43,6 +50,7 @@ public class Grid
         }
     }
 
+    // Returns true if there are no Animals left.
     public boolean allAnimalsHaveDied()
     {
         for(int i = 0; i < GRIDSIZE; i++)
@@ -52,12 +60,14 @@ public class Grid
         return true;
     }
 
+    // Moves the inhabitant in Cell a to Cell b.
     public void moveAnimal(Cell a, Cell b)
     {
         b.setInhabitant(a.getInhabitant()); // Moves animal's reference from a to b
         a.empty(); // Removes animal's reference from a
     }
     
+    // Returns the Cells adjacent to Cell a.
     public ArrayList<Cell> getAdjacentCells(Cell a)
     {
         int x = a.getLocation().getX();
@@ -89,6 +99,7 @@ public class Grid
         return result;
     }
 
+    // Spawns new Plants with equal probability at every empty Cell.
     public void spawnPlants()
     {
         for(int i = 0; i < GRIDSIZE; i++)
@@ -107,12 +118,13 @@ public class Grid
         }
     }
 
+    // Runs the ecosystem for one day.
     public void daytime()
     {
-        // Initialize ArrayList mustAct
+        // Initialize ArrayList mustAct.
         ArrayList<Organism> mustAct = new ArrayList<Organism>();
         
-        // Animals are gathered, then act
+        // Animals are gathered, then act.
         for(int i = 0; i < GRIDSIZE; i++)
         {
             for(int j = 0; j < GRIDSIZE; j++)
@@ -130,7 +142,7 @@ public class Grid
         mustAct.clear();
 
 
-        // Plants that were not devoured by Herbivores age
+        // Plants that were not devoured by Herbivores age.
         for(int i = 0; i < GRIDSIZE; i++)
         {
             for(int j = 0; j < GRIDSIZE; j++)
@@ -145,15 +157,14 @@ public class Grid
         }
         mustAct.clear();
 
-        // Spawn new plants
+        // Spawn new plants.
         spawnPlants();
         
-        // Day count incremented
+        // Day count incremented.
         turnCount += 1;
     }
         
-            
-    
+    // Returns a String representation of the whole ecosystem.
     @Override
     public String toString()
     {

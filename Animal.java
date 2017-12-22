@@ -40,7 +40,11 @@ public abstract class Animal extends Organism
     {
         // Depletes its energy.
         energy -= energyToAct;
+        
+        // Gathers surroundings Cells.
         ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);
+        
+        // Gathers nearby prey.
         ArrayList<Cell> nearbyPrey = isolatePrey(surroundings);
 
         /*
@@ -51,29 +55,49 @@ public abstract class Animal extends Organism
         }
         */
 
+        // Filters the surrounding Cells, removing all non-empty spaces.
         filter(surroundings);
+        
+        // If there is any possible Cell to move to...
         if(nearbyPrey.size() != 0 || surroundings.size() != 0)
         {
             Random random = new Random();
             Cell chosen;
-            if(nearbyPrey.size() == 0)
-                chosen = surroundings.get(random.nextInt(surroundings.size()));
-            else
+            
+            // If there are no nearby empty Cells to move to, or this Animal is hungry, choose a nearby prey to consume.
+            if(surroundings.size() == 0 || prioritizePrey())
             {
                 chosen = nearbyPrey.get(random.nextInt(nearbyPrey.size()));
             }
+            else
+            {
+                chosen = surroundings.get(random.nextInt(surroundings.size()));
+            }
+            
+            // If the chosen Cell contained prey, add the appropriate amount of energy to this predator.
             energy += energyFromConsuming(chosen);
+            chosen.empty();
             myCell.getMyGrid().moveAnimal(myCell, chosen);
             myCell = chosen;
         }
     }
+    
+    // Returns true if the Animal is at risk of dying within 3 days of not finding food.
+    public boolean prioritizePrey()
+    {
+        if(energy <= energyToAct * 3)
+            return true;
+        return false;
+    }
 
+    // Removes all non-empty Cells.
     public void filter(ArrayList<Cell> input)
     {
         filterRocks(input);
         filterOrganisms(input);
     }
 
+    // Isolates any nearby Animals that are of the same type.
     public ArrayList<Cell> isolateMates(ArrayList<Cell> input)
     {
         ArrayList<Cell> nearbyMates = new ArrayList<Cell>();
@@ -86,7 +110,8 @@ public abstract class Animal extends Organism
         }
         return nearbyMates;
     }
-
+    
+    // Returns the Animal with the strongest DNA.
     public Cell chooseMate(ArrayList<Organism> input)
     {
         int chosenIndex = 0;
@@ -98,6 +123,7 @@ public abstract class Animal extends Organism
         return input.get(chosenIndex).myCell;
     }
 
+    // Removes nearby Cells that don't contain prey.
     public ArrayList<Cell> isolatePrey(ArrayList<Cell> input)
     {
         ArrayList<Cell> inputCopy = (ArrayList<Cell>) input.clone();
@@ -112,6 +138,7 @@ public abstract class Animal extends Organism
         return inputCopy;
     }
 
+    // Removes nearby Cells that contain rocks.
     public void filterRocks(ArrayList<Cell> input)
     {
         for(int i = 0; i < input.size(); i++)
@@ -124,6 +151,7 @@ public abstract class Animal extends Organism
         }
     }
 
+    // Removes nearby Cells that contain mountains.
     public void filterMountains(ArrayList<Cell> input)
     {
         for(int i = 0; i < input.size(); i++)
@@ -136,6 +164,7 @@ public abstract class Animal extends Organism
         }
     }
 
+    // Removes nearby Cells that contain inhabitants.
     public void filterOrganisms(ArrayList<Cell> input)
     {
         for(int i = 0; i < input.size(); i++)
@@ -148,6 +177,7 @@ public abstract class Animal extends Organism
         }
     }
 
+    // Removes nearby Cells that contain inhabitants that are Animals.
     public void filterAnimals(ArrayList<Cell> input)
     {
         for(int i = 0; i < input.size(); i++)

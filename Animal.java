@@ -4,16 +4,17 @@ public abstract class Animal extends Organism
 {
     protected final DNA genetics;
 
+    // Creates a new Animal with randomly generated DNA.
     public Animal(Cell myCell)
     {
         super(myCell);
-
-        // Randomly generated DNA
+        
         genetics = new DNA();
         lifeSpan = (int) (getAverageLifeSpan() * genetics.getLifeSpanMultiplier());
         energyToAct = (int) (getAverageEnergyToAct() * genetics.getDailyEnergyMultiplier());
     }
 
+    // Creates a new Animal with DNA that is based on its parents' DNA.
     public Animal(Cell myCell, Animal parent1, Animal parent2)
     {
         super(myCell);
@@ -22,18 +23,22 @@ public abstract class Animal extends Organism
         energyToAct = (int) (getAverageEnergyToAct() * genetics.getDailyEnergyMultiplier());
     }
 
+    // Abstract methods that must be implemented by all subclass Animals.
     public abstract int getAverageLifeSpan();
     public abstract int getAverageEnergyToAct();
     public abstract int energyFromConsuming(Cell a);
     public abstract boolean readyToMate();
 
+    // Returns the DNA object of this Animal.
     public DNA getDNA()
     {
         return genetics;
     }
 
+    // Determines what this Animal will do.
     public void act()
     {
+        // Depletes its energy.
         energy -= energyToAct;
         ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);
 

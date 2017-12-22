@@ -1,12 +1,12 @@
 import java.util.*;
 
-public class Rabbit extends Animal
+public class Wolf extends Animal
 {
-    public Rabbit(Cell myCell)
+    public Wolf(Cell myCell)
     {
         super(myCell);
-        energy = 20;
-        symbol = '!';
+        energy = 60;
+        symbol = 'w';
     }
 
     @Override
@@ -20,22 +20,22 @@ public class Rabbit extends Animal
     @Override
     public int getAverageLifeSpan()
     {
-        return 40;
+        return 60;
     }
 
     @Override
     public int getAverageEnergyToAct()
     {
-        return 4;
+        return 10;
     }
 
     @Override
     public int energyFromConsuming(Cell a)
     {
-        if(a.getInhabitant() instanceof Plant)
+        if(a.getInhabitant() instanceof Fox)
         {
-            System.out.println("A rabbit is going to eat some lettuce!");
-            return 20;
+            System.out.println("A wolf is going to eat a fox!");
+            return 30;
         }
         return 0;
     }

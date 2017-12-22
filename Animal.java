@@ -36,6 +36,7 @@ public abstract class Animal extends Organism
     {
         energy -= energyToAct;
         ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);
+        ArrayList<Cell> nearbyPrey = isolatePrey(surroundings);
 
         /*
         ArrayList<Cell> nearbyMates = isolateMates(surroundings);
@@ -46,10 +47,9 @@ public abstract class Animal extends Organism
         */
 
         filter(surroundings);
-        Random random = new Random();
-        if(surroundings.size() != 0)
+        if(nearbyPrey.size() != 0 || surroundings.size() != 0)
         {
-            ArrayList<Cell> nearbyPrey = isolatePrey(surroundings);
+            Random random = new Random();
             Cell chosen;
             if(nearbyPrey.size() == 0)
                 chosen = surroundings.get(random.nextInt(surroundings.size()));
@@ -82,12 +82,12 @@ public abstract class Animal extends Organism
         return nearbyMates;
     }
 
-    public Cell chooseMate(ArrayList<Animal> input)
+    public Cell chooseMate(ArrayList<Organism> input)
     {
         int chosenIndex = 0;
         for(int i = 1; i < input.size(); i++)
         {
-            if(input.get(i).getDNA().getDNAStrength() > input.get(chosenIndex).getDNA().getDNAStrength())
+            if(((Animal)input.get(i)).getDNA().getDNAStrength() > ((Animal)input.get(i)).getDNA().getDNAStrength())
                 chosenIndex = i;
         }
         return input.get(chosenIndex).myCell;

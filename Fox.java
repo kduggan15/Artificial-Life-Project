@@ -8,6 +8,17 @@ public class Fox extends Animal
         energy = 40;
         symbol = 'f';
     }
+    
+    public Fox(Cell myCell, Cell parent1, Cell parent2)
+    {
+        super(myCell, parent1, parent2);
+    }
+    
+    @Override
+    public Fox makeChild(Cell birthPlace, Cell parent1, Cell parent2)
+    {
+        return new Fox(birthPlace, parent1, parent2);
+    }
 
     @Override
     public void filter(ArrayList<Cell> input)

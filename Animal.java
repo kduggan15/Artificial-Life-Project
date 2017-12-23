@@ -50,6 +50,7 @@ public abstract class Animal extends Organism
     // Determines what this Animal will do.
     public void act()
     {
+        if(!alive) return;
         // Depletes its energy.
         energy -= energyToAct;
         
@@ -106,13 +107,15 @@ public abstract class Animal extends Organism
             if(energyFromConsuming(chosen) != 0)
             {
                 myCell.getMyGrid().updateStatistics(chosen.getInhabitant().getClass().getName());
+                energy += energyFromConsuming(chosen);
+                chosen.getInhabitant().die();
+                //chosen.empty();
+                myCell.getMyGrid().moveAnimal(myCell, chosen);
+                myCell = chosen;
             }
 
             // If the chosen Cell contained prey, add the appropriate amount of energy to this predator.
-            energy += energyFromConsuming(chosen);
-            chosen.empty();
-            myCell.getMyGrid().moveAnimal(myCell, chosen);
-            myCell = chosen;
+
         }
     }
     

@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Rabbit extends Animal
 {
+    //protected final char symbol = '!';
     public Rabbit(Cell myCell)
     {
         super(myCell);

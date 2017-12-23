@@ -33,6 +33,7 @@ public abstract class Organism {
     // Calls the empty() method of this Organism's Cell, removing its reference from the Cell.
     public void die()
     {
+        alive=false;
         myCell.empty();
     }
 }

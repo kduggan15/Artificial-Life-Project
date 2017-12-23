@@ -27,14 +27,6 @@ public class Lion extends Animal
     }
 
     @Override
-    public void filter(ArrayList<Cell> input)
-    {
-        filterRocks(input);
-        filterMountains(input);
-        filterOrganisms(input);
-    }
-
-    @Override
     public int getAverageLifeSpan()
     {
         return 80;

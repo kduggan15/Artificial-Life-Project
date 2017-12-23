@@ -63,6 +63,8 @@ public abstract class Animal extends Organism
         {
             // Gathers nearby Animals of the same type.
             ArrayList<Cell> nearbyMates = isolateMates(surroundings);
+            ArrayList<Cell> possibleBirthplaces = myCell.getMyGrid().getAdjacentCells(myCell);
+            filter(possibleBirthplaces);
             if(nearbyMates.size() > 0)
             {
                 filter(surroundings);
@@ -92,7 +94,7 @@ public abstract class Animal extends Organism
             Cell chosen;
             
             // If there are no nearby empty Cells to move to, or this Animal is hungry, choose a nearby prey to consume.
-            if(surroundings.size() == 0 || (nearbyPrey.size() != 0 && prioritizePrey()))
+            if( (surroundings.size() == 0) || (nearbyPrey.size() != 0 && prioritizePrey()) )
             {
                 chosen = chooseBestPrey(nearbyPrey);
             }
@@ -107,10 +109,9 @@ public abstract class Animal extends Organism
                 myCell.getMyGrid().updateStatistics(chosen.getInhabitant().getClass().getName());
                 energy += energyFromConsuming(chosen);
                 chosen.getInhabitant().die();
-                //chosen.empty();
-                myCell.getMyGrid().moveAnimal(myCell, chosen);
-                myCell = chosen;
             }
+            myCell.getMyGrid().moveAnimal(myCell, chosen);
+            myCell = chosen;
         }
     }
 
@@ -139,6 +140,7 @@ public abstract class Animal extends Organism
     public void filter(ArrayList<Cell> input)
     {
         filterRocks(input);
+        filterMountains(input);
         filterOrganisms(input);
     }
 

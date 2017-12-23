@@ -8,6 +8,17 @@ public class Wolf extends Animal
         energy = 60;
         symbol = 'w';
     }
+    
+    public Wolf(Cell myCell, Cell parent1, Cell parent2)
+    {
+        super(myCell, parent1, parent2);
+    }
+    
+    @Override
+    public Wolf makeChild(Cell birthPlace, Cell parent1, Cell parent2)
+    {
+        return new Wolf(birthPlace, parent1, parent2);
+    }
 
     @Override
     public void filter(ArrayList<Cell> input)

@@ -15,10 +15,10 @@ public abstract class Animal extends Organism
     }
 
     // Creates a new Animal with DNA that is based on its parents' DNA.
-    public Animal(Cell myCell, Animal parent1, Animal parent2)
+    public Animal(Cell birthPlace, Cell parent1, Cell parent2)
     {
-        super(myCell);
-        genetics = new DNA(parent1.getDNA(), parent2.getDNA());
+        super(birthPlace);
+        genetics = new DNA((Animal)(parent1.getInhabitant()).getDNA(), (Animal)(parent2.getInhabitant()).getDNA());
         lifeSpan = (int) (getAverageLifeSpan() * genetics.getLifeSpanMultiplier());
         energyToAct = (int) (getAverageEnergyToAct() * genetics.getDailyEnergyMultiplier());
     }

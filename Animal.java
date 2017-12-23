@@ -46,14 +46,25 @@ public abstract class Animal extends Organism
         
         // Gathers nearby prey.
         ArrayList<Cell> nearbyPrey = isolatePrey(surroundings);
-
-
-        ArrayList<Cell> nearbyMates = isolateMates(surroundings);
-        if(readyToMate() && nearbyMates.size() > 0)//TODO:Adding a chance to breed might be good
+        
+        // Reproduction
+        if(readyToMate()) // TODO:Adding a chance to breed might be good
         {
-            breed(chooseMate(nearbyMates));
+            // Gathers nearby Animals of the same type.
+            ArrayList<Cell> nearbyMates = isolateMates(surroundings);
+            if(nearbyMates.size() > 0)
+            {
+                filter(surroundings);
+                if(surroundings.size() > 0) // Is there a place to put the baby?
+                {
+                    Random random = new Random();
+                    Cell myMate = chooseMate(nearbyMates);
+                    Cell chosenBirthplace = surroundings.get(random.nextInt(surroundings.size()));
+                    breed(myMate); //TODO:Adding a chance to breed might be good
+                    return;
+                }
+            }
         }
-
 
         // Filters the surrounding Cells, removing all non-empty spaces.
         filter(surroundings);
@@ -115,7 +126,9 @@ public abstract class Animal extends Organism
                 if(this.getClass().equals(input.get(i).getInhabitant().getClass()))
                 //if(input.get(i) instanceof this.getClass())
                 {
-                    nearbyMates.add(input.get(i));
+                    // Ensure the mate is ready.
+                    if(( (Animal)(input.get(i).getInhabitant()) ).readyToMate())
+                        nearbyMates.add(input.get(i));
                 }
         }
         return nearbyMates;

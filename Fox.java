@@ -49,10 +49,4 @@ public class Fox extends Animal
         }
         return 0;
     }
-
-    @Override
-    public boolean readyToMate()
-    {
-        return true;
-    }
 }

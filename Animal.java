@@ -28,6 +28,7 @@ public abstract class Animal extends Organism
     public abstract int getAverageEnergyToAct();
     public abstract int energyFromConsuming(Cell a);
     public abstract boolean readyToMate();
+    public abstract Animal makeChild(Cell birthPlace, Cell parent1, Cell parent2);
 
     // Returns the DNA object of this Animal.
     public DNA getDNA()
@@ -60,7 +61,7 @@ public abstract class Animal extends Organism
                     Random random = new Random();
                     Cell myMate = chooseMate(nearbyMates);
                     Cell chosenBirthplace = surroundings.get(random.nextInt(surroundings.size()));
-                    breed(myMate); //TODO:Adding a chance to breed might be good
+                    chosenBirthplace.setInhabitant(makeChild(chosenBirthplace, this.myCell, mymate));
                     return;
                 }
             }
@@ -227,12 +228,5 @@ public abstract class Animal extends Organism
         filterOccupied(surroundings);
         //Animal child = new Animal(surroundings.get(0), this, theMate.getInhabitant())
         surroundings.get(0).setInhabitant(this.makeChild(theMate,surroundings.get(0)));
-    }
-
-    //TODO: This must be overwritten in each child class to allow for inheritance
-    public Animal makeChild(Cell theMate, Cell Loc)
-    {
-        //return new Animal(Loc, this, theMate.getInhabitant());//Weird BS to make it so child constructors are used
-        return this;//This does not work, but it shouldn't be used anyway
     }
 }

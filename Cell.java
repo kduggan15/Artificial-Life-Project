@@ -50,4 +50,10 @@ public class Cell
     {
         return terrain;
     }
+
+    //Returns true if the cell is good to be moved to
+    public boolean isValidMove()
+    {
+        return(this.inhabitant == null && terrain != Terrain.MOUNTAINS && terrain != Terrain.ROCKS);
+    }
 }

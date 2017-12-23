@@ -9,6 +9,11 @@ public class Rabbit extends Animal
         symbol = '!';
     }
 
+    public Rabbit(Cell myCell, Animal parent1, Animal parent2)
+    {
+        super(myCell,parent1,parent2);
+    }
+
     @Override
     public void filter(ArrayList<Cell> input)
     {
@@ -43,5 +48,11 @@ public class Rabbit extends Animal
     public boolean readyToMate()
     {
         return true;
+    }
+
+    @Override
+    public Rabbit makeChild(Cell theMate, Cell Loc)
+    {
+        return new Rabbit(Loc, this, (Rabbit)theMate.getInhabitant());//Weird BS to make it so child constructors are used
     }
 }

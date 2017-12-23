@@ -42,18 +42,18 @@ public abstract class Animal extends Organism
         energy -= energyToAct;
         
         // Gathers surroundings Cells.
-        ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);
+        ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);//TODO:This structure is bad, but whatever
         
         // Gathers nearby prey.
         ArrayList<Cell> nearbyPrey = isolatePrey(surroundings);
 
-        /*
+
         ArrayList<Cell> nearbyMates = isolateMates(surroundings);
-        if(readyToMate() && nearbyMates.size() > 0)
+        if(readyToMate() && nearbyMates.size() > 0)//TODO:Adding a chance to breed might be good
         {
-            // Reproduce
+            breed(chooseMate(nearbyMates));
         }
-        */
+
 
         // Filters the surrounding Cells, removing all non-empty spaces.
         filter(surroundings);
@@ -109,24 +109,28 @@ public abstract class Animal extends Organism
         ArrayList<Cell> nearbyMates = new ArrayList<Cell>();
         for(int i = 0; i < input.size(); i++)
         {
-            if(this.getClass().getName().equals( input.get(i).getInhabitant().getClass().getName() ))
-            {
-                nearbyMates.add(input.get(i));
-            }
+            //this.getClass();
+            //System.out.println(""+i+"/"+input.size());
+            if (input.get(i).getInhabitant()!=null)//stop from checking null spaces
+                if(this.getClass().equals(input.get(i).getInhabitant().getClass()))
+                //if(input.get(i) instanceof this.getClass())
+                {
+                    nearbyMates.add(input.get(i));
+                }
         }
         return nearbyMates;
     }
     
     // Returns the Animal with the strongest DNA.
-    public Cell chooseMate(ArrayList<Organism> input)
+    public Cell chooseMate(ArrayList<Cell> input)//Changed the arraylist to type Cell because that is more consistent with program
     {
         int chosenIndex = 0;
         for(int i = 1; i < input.size(); i++)
         {
-            if(((Animal)input.get(i)).getDNA().computeDNAStrength() > ((Animal)input.get(i)).getDNA().computeDNAStrength())
+            if(((Animal)input.get(i).getInhabitant()).getDNA().computeDNAStrength() > ((Animal)input.get(i).getInhabitant()).getDNA().computeDNAStrength())
                 chosenIndex = i;
         }
-        return input.get(chosenIndex).myCell;
+        return input.get(chosenIndex);
     }
 
     // Removes nearby Cells that don't contain prey.
@@ -194,5 +198,28 @@ public abstract class Animal extends Organism
                 i--;
             }
         }
+    }
+
+    public void filterOccupied(ArrayList<Cell> input)
+    {
+        for(int i=0; i<input.size();i++)
+        {
+            if(!input.get(i).isValidMove()) input.remove(i);
+        }
+    }
+
+    public void breed(Cell theMate)
+    {
+        ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);
+        filterOccupied(surroundings);
+        //Animal child = new Animal(surroundings.get(0), this, theMate.getInhabitant())
+        surroundings.get(0).setInhabitant(this.makeChild(theMate,surroundings.get(0)));
+    }
+
+    //TODO: This must be overwritten in each child class to allow for inheritance
+    public Animal makeChild(Cell theMate, Cell Loc)
+    {
+        //return new Animal(Loc, this, theMate.getInhabitant());//Weird BS to make it so child constructors are used
+        return this;//This does not work, but it shouldn't be used anyway
     }
 }

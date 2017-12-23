@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.*;
@@ -17,8 +18,8 @@ public class Grid
     private int plantDailyChance = 1;
     private int rabbitChance = 20;
     private int foxChance = 10;
-    private int wolfChance = 7;
-    private int lionChance = 5;
+    private int wolfChance = 10;
+    private int lionChance = 7;
 
     // Some fun statistics.
     private int plantsEaten;
@@ -41,14 +42,18 @@ public class Grid
 
         for(int i = 0; i < GRIDSIZE; i++) {
             for (int j = 0; j < GRIDSIZE; j++) {
-                // Spawn all cells.
+                // Initialize all cells.
                 board[i][j] = new Cell(this, Cell.Terrain.PLAINS, new Location(i, j));
             }
         }
 
         Random random = new Random();
         // Create a mountain range
-        spawnMountainRange(board[random.nextInt(GRIDSIZE)][random.nextInt(GRIDSIZE)],1.0);
+        int offset = 4;
+        spawnMountainRange(board
+                [offset + random.nextInt(GRIDSIZE - offset * 2)]
+                [offset + random.nextInt(GRIDSIZE - offset * 2)],1.0);
+        fillInTrappedCells();
 
         for(int i = 0; i < GRIDSIZE; i++)
         {
@@ -257,7 +262,7 @@ public class Grid
         // Get adjacent cells.
         ArrayList<Cell> adjCells = getAdjacentCells(c);
         // Reduce the probability of mountains spreading.
-        double newProb = prob/2;
+        double newProb = prob / 2.0;
 
         for(int i = 0; i < adjCells.size(); i++)
         {
@@ -265,6 +270,32 @@ public class Grid
             {
                 // Recursive call to adjacent cells.
                 spawnMountainRange(adjCells.get(i),newProb);
+            }
+        }
+    }
+
+    public void fillInTrappedCells()
+    {
+        for(int i = 0; i < GRIDSIZE; i++)
+        {
+            for(int j = 0; j < GRIDSIZE; j++)
+            {
+                if(board[i][j].getTerrain() != Cell.Terrain.MOUNTAINS)
+                {
+                    ArrayList<Cell> surroundings = getAdjacentCells(board[i][j]);
+                    for (int k = 0; k < surroundings.size(); k++)
+                    {
+                        if (surroundings.get(k).getTerrain() != Cell.Terrain.MOUNTAINS)
+                        {
+                            break;
+                        }
+                        if (k == surroundings.size() - 1)
+                        {
+                            board[i][j].setTerrain(Cell.Terrain.MOUNTAINS);
+                        }
+                    }
+                    surroundings.clear();
+                }
             }
         }
     }

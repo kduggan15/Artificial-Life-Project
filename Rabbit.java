@@ -45,12 +45,6 @@ public class Rabbit extends Animal
     }
 
     @Override
-    public boolean readyToMate()
-    {
-        return true;
-    }
-
-    @Override
     public Rabbit makeChild(Cell birthPlace, Cell parent1, Cell parent2)
     {
         return new Rabbit(birthPlace, parent1, parent2);

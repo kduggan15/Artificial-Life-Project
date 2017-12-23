@@ -27,9 +27,18 @@ public abstract class Animal extends Organism
     public abstract int getAverageLifeSpan();
     public abstract int getAverageEnergyToAct();
     public abstract int energyFromConsuming(Cell a);
-    public abstract boolean readyToMate();
     public abstract Animal makeChild(Cell birthPlace, Cell parent1, Cell parent2);
 
+    // Returns true if this Animal is ready to mate.
+    public boolean readyToMate()
+    {
+        if(energy > energyToAct * 3 && age > lifeSpan / 5)
+        {
+            return true;
+        }
+        return false;
+    }
+    
     // Returns the DNA object of this Animal.
     public DNA getDNA()
     {

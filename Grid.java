@@ -18,8 +18,9 @@ public class Grid
     private int plantDailyChance = 1;
     private int rabbitChance = 20;
     private int foxChance = 10;
-    private int wolfChance = 10;
-    private int lionChance = 7;
+    private int wolfChance = 7;
+    private int lionChance = 5;
+    private int rockChance = 2;
 
     // Some fun statistics.
     private int plantsEaten;
@@ -48,12 +49,26 @@ public class Grid
         }
 
         Random random = new Random();
-        // Create a mountain range
+        // Create a mountain range.
         int offset = 4;
         spawnMountainRange(board
                 [offset + random.nextInt(GRIDSIZE - offset * 2)]
                 [offset + random.nextInt(GRIDSIZE - offset * 2)],1.0);
         fillInTrappedCells();
+
+
+        // Spawn some well-spaced Rocks.
+        for(int i = 0; i < GRIDSIZE; i++)
+        {
+            for(int j = 0; j < GRIDSIZE; j++)
+            {
+                if(random.nextInt(100) < rockChance)
+                {
+                    board[i][j].setTerrain(Cell.Terrain.ROCKS);
+                    break;
+                }
+            }
+        }
 
         for(int i = 0; i < GRIDSIZE; i++)
         {
@@ -240,6 +255,8 @@ public class Grid
                     output += "  ";
                 else if (board[i][j].getTerrain() == Cell.Terrain.MOUNTAINS)
                     output += "M ";
+                else if (board[i][j].getTerrain() == Cell.Terrain.ROCKS)
+                    output += "R ";
             }
             output += "\n";
         }

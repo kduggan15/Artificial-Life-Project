@@ -61,7 +61,7 @@ public abstract class Animal extends Organism
                     Random random = new Random();
                     Cell myMate = chooseMate(nearbyMates);
                     Cell chosenBirthplace = surroundings.get(random.nextInt(surroundings.size()));
-                    chosenBirthplace.setInhabitant(makeChild(chosenBirthplace, this.myCell, mymate));
+                    chosenBirthplace.setInhabitant(makeChild(chosenBirthplace, this.myCell, myMate));
                     return;
                 }
             }
@@ -212,21 +212,5 @@ public abstract class Animal extends Organism
                 i--;
             }
         }
-    }
-
-    public void filterOccupied(ArrayList<Cell> input)
-    {
-        for(int i=0; i<input.size();i++)
-        {
-            if(!input.get(i).isValidMove()) input.remove(i);
-        }
-    }
-
-    public void breed(Cell theMate)
-    {
-        ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);
-        filterOccupied(surroundings);
-        //Animal child = new Animal(surroundings.get(0), this, theMate.getInhabitant())
-        surroundings.get(0).setInhabitant(this.makeChild(theMate,surroundings.get(0)));
     }
 }

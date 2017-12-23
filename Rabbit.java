@@ -9,9 +9,9 @@ public class Rabbit extends Animal
         symbol = '!';
     }
 
-    public Rabbit(Cell myCell, Animal parent1, Animal parent2)
+    public Rabbit(Cell myCell, Cell parent1, Cell parent2)
     {
-        super(myCell,parent1,parent2);
+        super(myCell, parent1, parent2);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class Rabbit extends Animal
     }
 
     @Override
-    public Rabbit makeChild(Cell theMate, Cell Loc)
+    public Rabbit makeChild(Cell birthPlace, Cell parent1, Cell parent2)
     {
-        return new Rabbit(Loc, this, (Rabbit)theMate.getInhabitant());//Weird BS to make it so child constructors are used
+        return new Rabbit(birthPlace, parent1, parent2);
     }
 }

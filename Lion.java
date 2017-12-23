@@ -5,15 +5,21 @@ public class Lion extends Animal
     public Lion(Cell myCell)
     {
         super(myCell);
-        energy = 80;
-        symbol = 'l';
+        initialize();
     }
     
     public Lion(Cell myCell, Cell parent1, Cell parent2)
     {
         super(myCell, parent1, parent2);
+        initialize();
     }
-    
+
+    private void initialize()
+    {
+        energy = 80;
+        symbol = 'l';
+    }
+
     @Override
     public Lion makeChild(Cell birthPlace, Cell parent1, Cell parent2)
     {

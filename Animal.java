@@ -18,6 +18,8 @@ public abstract class Animal extends Organism
     public Animal(Cell birthPlace, Cell parent1, Cell parent2)
     {
         super(birthPlace);
+        if(parent1.getInhabitant() == null || parent2.getInhabitant() == null)
+            System.out.println("Not good team.");
         genetics = new DNA(((Animal)(parent1.getInhabitant())).getDNA(), ((Animal)(parent2.getInhabitant())).getDNA());
         lifeSpan = (int) (getAverageLifeSpan() * genetics.getLifeSpanMultiplier());
         energyToAct = (int) (getAverageEnergyToAct() * genetics.getDailyEnergyMultiplier());
@@ -70,7 +72,12 @@ public abstract class Animal extends Organism
                     Random random = new Random();
                     Cell myMate = chooseMate(nearbyMates);
                     Cell chosenBirthplace = surroundings.get(random.nextInt(surroundings.size()));
-                    chosenBirthplace.setInhabitant(makeChild(chosenBirthplace, this.myCell, myMate));
+                    if(myCell.getInhabitant() == null || myMate.getInhabitant() == null)
+                    {
+                        System.out.println("Big problems bro.");
+                    }
+                    chosenBirthplace.setInhabitant(makeChild(chosenBirthplace, myCell, myMate));
+                    System.out.println("Making a baby!");
                     return;
                 }
             }

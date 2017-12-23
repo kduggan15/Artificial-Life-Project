@@ -5,13 +5,19 @@ public class Rabbit extends Animal
     public Rabbit(Cell myCell)
     {
         super(myCell);
-        energy = 20;
-        symbol = '!';
+        initialize();
     }
 
     public Rabbit(Cell myCell, Cell parent1, Cell parent2)
     {
         super(myCell, parent1, parent2);
+        initialize();
+    }
+
+    private void initialize()
+    {
+        energy = 20;
+        symbol = '!';
     }
 
     @Override

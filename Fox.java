@@ -5,13 +5,19 @@ public class Fox extends Animal
     public Fox(Cell myCell)
     {
         super(myCell);
-        energy = 40;
-        symbol = 'f';
+        initialize();
     }
     
     public Fox(Cell myCell, Cell parent1, Cell parent2)
     {
         super(myCell, parent1, parent2);
+        initialize();
+    }
+
+    private void initialize()
+    {
+        energy = 40;
+        symbol = 'f';
     }
     
     @Override

@@ -5,13 +5,19 @@ public class Wolf extends Animal
     public Wolf(Cell myCell)
     {
         super(myCell);
-        energy = 60;
-        symbol = 'w';
+        initialize();
     }
     
     public Wolf(Cell myCell, Cell parent1, Cell parent2)
     {
         super(myCell, parent1, parent2);
+        initialize();
+    }
+
+    private void initialize()
+    {
+        energy = 60;
+        symbol = 'w';
     }
     
     @Override

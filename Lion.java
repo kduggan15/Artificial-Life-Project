@@ -8,6 +8,17 @@ public class Lion extends Animal
         energy = 80;
         symbol = 'l';
     }
+    
+    public Lion(Cell myCell, Cell parent1, Cell parent2)
+    {
+        super(myCell, parent1, parent2);
+    }
+    
+    @Override
+    public Lion makeChild(Cell birthPlace, Cell parent1, Cell parent2)
+    {
+        return new Lion(birthPlace, parent1, parent2);
+    }
 
     @Override
     public void filter(ArrayList<Cell> input)

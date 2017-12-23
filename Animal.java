@@ -18,7 +18,7 @@ public abstract class Animal extends Organism
     public Animal(Cell birthPlace, Cell parent1, Cell parent2)
     {
         super(birthPlace);
-        genetics = new DNA((Animal)(parent1.getInhabitant()).getDNA(), (Animal)(parent2.getInhabitant()).getDNA());
+        genetics = new DNA(((Animal)(parent1.getInhabitant())).getDNA(), ((Animal)(parent2.getInhabitant())).getDNA());
         lifeSpan = (int) (getAverageLifeSpan() * genetics.getLifeSpanMultiplier());
         energyToAct = (int) (getAverageEnergyToAct() * genetics.getDailyEnergyMultiplier());
     }

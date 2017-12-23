@@ -53,6 +53,10 @@ public class Wolf extends Animal
         {
             return 30;
         }
+        else if(a.getInhabitant() instanceof Rabbit)
+        {
+            return 20;
+        }
         return 0;
     }
 }

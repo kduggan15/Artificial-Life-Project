@@ -18,8 +18,6 @@ public abstract class Animal extends Organism
     public Animal(Cell birthPlace, Cell parent1, Cell parent2)
     {
         super(birthPlace);
-        if(parent1.getInhabitant() == null || parent2.getInhabitant() == null)
-            System.out.println("Not good team.");
         genetics = new DNA(((Animal)(parent1.getInhabitant())).getDNA(), ((Animal)(parent2.getInhabitant())).getDNA());
         lifeSpan = (int) (getAverageLifeSpan() * genetics.getLifeSpanMultiplier());
         energyToAct = (int) (getAverageEnergyToAct() * genetics.getDailyEnergyMultiplier());
@@ -96,7 +94,7 @@ public abstract class Animal extends Organism
             // If there are no nearby empty Cells to move to, or this Animal is hungry, choose a nearby prey to consume.
             if(surroundings.size() == 0 || (nearbyPrey.size() != 0 && prioritizePrey()))
             {
-                chosen = nearbyPrey.get(random.nextInt(nearbyPrey.size()));
+                chosen = chooseBestPrey(nearbyPrey);
             }
             else
             {
@@ -113,10 +111,20 @@ public abstract class Animal extends Organism
                 myCell.getMyGrid().moveAnimal(myCell, chosen);
                 myCell = chosen;
             }
-
-            // If the chosen Cell contained prey, add the appropriate amount of energy to this predator.
-
         }
+    }
+
+    public Cell chooseBestPrey(ArrayList<Cell> nearbyPrey)
+    {
+        Cell chosen = nearbyPrey.get(0);
+        for(int i = 0; i < nearbyPrey.size(); i++)
+        {
+            if(energyFromConsuming(nearbyPrey.get(i)) > energyFromConsuming(chosen))
+            {
+                chosen = nearbyPrey.get(i);
+            }
+        }
+        return chosen;
     }
     
     // Returns true if the Animal is at risk of dying within 3 days of not finding food, even if there is no nearby food.

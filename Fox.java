@@ -43,7 +43,7 @@ public class Fox extends Animal
     @Override
     public int getAverageEnergyToAct()
     {
-        return 6;
+        return 10;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Fox extends Animal
     {
         if(a.getInhabitant() instanceof Rabbit)
         {
-            return 30;
+            return 20;
         }
         return 0;
     }

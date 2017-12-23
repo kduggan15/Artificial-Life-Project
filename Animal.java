@@ -72,7 +72,7 @@ public abstract class Animal extends Organism
                     Random random = new Random();
                     Cell myMate = chooseMate(nearbyMates);
                     Cell chosenBirthplace = surroundings.get(random.nextInt(surroundings.size()));
-                    if(myCell.getInhabitant() == null || myMate.getInhabitant() == null)
+                    if(myCell.getInhabitant() == null)
                     {
                         System.out.println("Big problems bro.");
                     }

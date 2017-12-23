@@ -24,7 +24,8 @@ public abstract class Organism {
             return;
         }
         age += 1;
-        act();
+        if(myCell.getInhabitant() != null)
+            act();
     }
     
     public abstract void act();

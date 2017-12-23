@@ -2,7 +2,7 @@ public class Cell
 {
     public enum Terrain { PLAINS, MOUNTAINS, ROCKS; }
     private Grid myGrid;
-    private final Terrain terrain;
+    private Terrain terrain;
     private Location location;
     private Organism inhabitant;
 
@@ -55,5 +55,11 @@ public class Cell
     public boolean isValidMove()
     {
         return(this.inhabitant == null && terrain != Terrain.MOUNTAINS && terrain != Terrain.ROCKS);
+    }
+
+    // Sets the terrain field of the cell to terra
+    public void setTerrain(Terrain terra)
+    {
+        terrain = terra;
     }
 }

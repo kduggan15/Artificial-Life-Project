@@ -39,34 +39,43 @@ public class Grid
     {
         initializeStatistics();
 
+        for(int i = 0; i < GRIDSIZE; i++) {
+            for (int j = 0; j < GRIDSIZE; j++) {
+                // Spawn all cells.
+                board[i][j] = new Cell(this, Cell.Terrain.PLAINS, new Location(i, j));
+            }
+        }
+
+        Random random = new Random();
+        // Create a mountain range
+        spawnMountainRange(board[random.nextInt(GRIDSIZE)][random.nextInt(GRIDSIZE)],1.0);
+
         for(int i = 0; i < GRIDSIZE; i++)
         {
             for(int j = 0; j < GRIDSIZE; j++)
             {
-                // Spawn all cells.
-                board[i][j] = new Cell(this, Cell.Terrain.PLAINS, new Location(i,j));
-                Random random = new Random();
-                
-                // Spawn all Organisms.
-                if(random.nextInt(100) < plantChance)
-                {
-                    board[i][j].setInhabitant(new Plant(board[i][j]));
-                }
-                else if(random.nextInt(100) < rabbitChance)
-                {
-                    board[i][j].setInhabitant(new Rabbit(board[i][j]));
-                }
-                else if(random.nextInt(100) < foxChance)
-                {
-                    board[i][j].setInhabitant(new Fox(board[i][j]));
-                }
-                else if(random.nextInt(100) < wolfChance)
-                {
-                    board[i][j].setInhabitant(new Wolf(board[i][j]));
-                }
-                else if(random.nextInt(100) < lionChance)
-                {
-                    board[i][j].setInhabitant(new Lion(board[i][j]));
+                if(board[i][j].getTerrain() == Cell.Terrain.PLAINS) {
+                    // Spawn all Organisms.
+                    if (random.nextInt(100) < plantChance)
+                    {
+                        board[i][j].setInhabitant(new Plant(board[i][j]));
+                    }
+                    else if (random.nextInt(100) < rabbitChance)
+                    {
+                        board[i][j].setInhabitant(new Rabbit(board[i][j]));
+                    }
+                    else if (random.nextInt(100) < foxChance)
+                    {
+                        board[i][j].setInhabitant(new Fox(board[i][j]));
+                    }
+                    else if (random.nextInt(100) < wolfChance)
+                    {
+                        board[i][j].setInhabitant(new Wolf(board[i][j]));
+                    }
+                    else if (random.nextInt(100) < lionChance)
+                    {
+                        board[i][j].setInhabitant(new Lion(board[i][j]));
+                    }
                 }
             }
         }
@@ -140,7 +149,7 @@ public class Grid
         {
             for (int j = 0; j < GRIDSIZE; j++)
             {
-                if(board[i][j].getInhabitant() == null)
+                if(board[i][j].getInhabitant() == null && board[i][j].getTerrain() == Cell.Terrain.PLAINS)
                 {
                     Random random = new Random();
                     if (random.nextInt(100) < plantDailyChance)
@@ -222,11 +231,41 @@ public class Grid
             {
                 if(board[i][j].getInhabitant() instanceof Organism)
                     output += board[i][j].getInhabitant().symbol + " ";
-                else
+                else if (board[i][j].getTerrain() == Cell.Terrain.PLAINS)
                     output += "  ";
+                else if (board[i][j].getTerrain() == Cell.Terrain.MOUNTAINS)
+                    output += "M ";
             }
             output += "\n";
         }
         return output;
+    }
+
+    // Recursively creates a cluster of mountains starting at cell c.
+    // Argument prob is the probability of the mountains spreading.
+    public void spawnMountainRange(Cell c, double prob)
+    {
+        Random rando = new Random();
+
+        // Base case (Sort of)
+        if (rando.nextDouble() >= prob){
+            return;
+        }
+
+        c.setTerrain(Cell.Terrain.MOUNTAINS);
+
+        // Get adjacent cells.
+        ArrayList<Cell> adjCells = getAdjacentCells(c);
+        // Reduce the probability of mountains spreading.
+        double newProb = prob/2;
+
+        for(int i = 0; i < adjCells.size(); i++)
+        {
+            if(adjCells.get(i).getTerrain() == Cell.Terrain.PLAINS)
+            {
+                // Recursive call to adjacent cells.
+                spawnMountainRange(adjCells.get(i),newProb);
+            }
+        }
     }
 }

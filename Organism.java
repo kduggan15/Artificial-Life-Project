@@ -36,4 +36,9 @@ public abstract class Organism {
         alive=false;
         myCell.empty();
     }
+
+    public boolean isAlive()
+    {
+        return alive;
+    }
 }

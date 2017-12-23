@@ -107,6 +107,7 @@ public class Grid
         for(int i = 0; i < GRIDSIZE; i++)
             for(int j = 0; j < GRIDSIZE; j++)
                 if(board[i][j].getInhabitant() instanceof Animal)
+                    if(board[i][j].getInhabitant().isAlive())
                     return false;
         return true;
     }

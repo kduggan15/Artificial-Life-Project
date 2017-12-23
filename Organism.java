@@ -20,6 +20,7 @@ public abstract class Organism {
     {
         if(age > lifeSpan || energy < 1)
         {
+            alive = false;
             die();
             return;
         }

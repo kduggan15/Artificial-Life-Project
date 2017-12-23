@@ -18,7 +18,16 @@ public class Cell
     // Returns the inhabitant of this Cell (null if there is no inhabitant).
     public Organism getInhabitant()
     {
-        return inhabitant;
+        if(inhabitant == null)
+            return inhabitant;
+        else
+        {
+            if(!inhabitant.isAlive())
+            {
+                empty();
+            }
+            return inhabitant;
+        }
     }
 
     // Sets an inhabitant for this Cell.

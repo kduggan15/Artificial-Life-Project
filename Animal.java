@@ -245,8 +245,5 @@ public abstract class Animal extends Organism
         }
     }
 
-    public void drawMyself(GraphicsContext gc, int x, int y)
-    {
 
-    }
 }

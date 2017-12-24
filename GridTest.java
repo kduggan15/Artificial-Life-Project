@@ -73,16 +73,16 @@ public class GridTest extends Application {
         final int SIZE_OF_CELL = CANVAS_SIZE/world.GRIDSIZE;
         int effectiveX;
         int effectiveY;
+        Organism thisOrg;
         for(int i=0; i<world.GRIDSIZE*world.GRIDSIZE;i++)
         {
+
             effectiveX=(i*(SIZE_OF_CELL))%CANVAS_SIZE;
             effectiveY=((i/world.GRIDSIZE)*SIZE_OF_CELL);
+            thisOrg = world.getCell(i%world.GRIDSIZE,i/world.GRIDSIZE).getInhabitant();
 
-
-            gc.setFill(Color.GREEN);
-            gc.setStroke(Color.BLUE);
-            gc.setLineWidth(5);
-            gc.strokeLine(effectiveX, effectiveY, effectiveX+16, effectiveY+16);
+            if(thisOrg!= null)
+                thisOrg.drawMyself(gc,effectiveX,effectiveY);
         }
     }
 }

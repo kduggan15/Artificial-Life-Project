@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 public abstract class Organism {
     protected Cell myCell;
     protected int energy;
@@ -41,5 +43,10 @@ public abstract class Organism {
     public boolean isAlive()
     {
         return alive;
+    }
+
+    public void drawMyself(GraphicsContext gc, int x, int y)
+    {
+
     }
 }

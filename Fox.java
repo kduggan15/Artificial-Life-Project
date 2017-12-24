@@ -1,4 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 import java.util.*;
 
@@ -53,6 +54,9 @@ public class Fox extends Animal
     @Override
     public void drawMyself(GraphicsContext gc, int x, int y)
     {
-
+        gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLUE);
+        gc.setLineWidth(5);
+        gc.strokeLine(x, y, x+16, y+16);
     }
 }

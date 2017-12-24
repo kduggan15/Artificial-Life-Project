@@ -317,4 +317,9 @@ public class Grid
             }
         }
     }
+
+    public Cell getCell(int x, int y)
+    {
+        return board[x][y];
+    }
 }

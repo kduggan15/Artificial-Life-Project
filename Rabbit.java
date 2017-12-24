@@ -1,3 +1,7 @@
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+
 import java.util.*;
 
 public class Rabbit extends Animal
@@ -47,5 +51,12 @@ public class Rabbit extends Animal
     public Rabbit makeChild(Cell birthPlace, Cell parent1, Cell parent2)
     {
         return new Rabbit(birthPlace, parent1, parent2);
+    }
+
+    @Override
+    public void drawMyself(GraphicsContext gc, int x, int y, int cellSize)
+    {
+        Image image = new Image(getClass().getResourceAsStream("rabbit.jpg"));
+        gc.drawImage(image, x, y, cellSize, cellSize);
     }
 }

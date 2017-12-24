@@ -16,13 +16,18 @@ public class Cell
         this.myGrid = myGrid;
         this.terrain = terrain;
         this.location = location;
+        updateImage();
+        inhabitant = null;
+    }
+
+    public void updateImage()
+    {
         if(terrain == Terrain.PLAINS)
             image = new Image(getClass().getResourceAsStream("plains.png"));
         else if(terrain == Terrain.MOUNTAINS)
             image = new Image(getClass().getResourceAsStream("mountains.png"));
         else
             image = new Image(getClass().getResourceAsStream("rocks.jpg"));
-        inhabitant = null;
     }
 
     // Returns the inhabitant of this Cell (null if there is no inhabitant).
@@ -80,6 +85,7 @@ public class Cell
     public void setTerrain(Terrain terra)
     {
         terrain = terra;
+        updateImage();
     }
 
     public void drawTerrain(GraphicsContext gc, int x, int y, int cellSize)

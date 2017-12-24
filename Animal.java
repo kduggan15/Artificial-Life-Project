@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 import java.util.*;
 
 public abstract class Animal extends Organism
@@ -241,5 +243,10 @@ public abstract class Animal extends Organism
                 i--;
             }
         }
+    }
+
+    public void drawMyself(GraphicsContext gc, int x, int y)
+    {
+
     }
 }

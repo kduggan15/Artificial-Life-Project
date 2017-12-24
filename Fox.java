@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+
 import java.util.*;
 
 public class Fox extends Animal
@@ -46,5 +48,11 @@ public class Fox extends Animal
             return 20;
         }
         return 0;
+    }
+
+    @Override
+    public void drawMyself(GraphicsContext gc, int x, int y)
+    {
+
     }
 }

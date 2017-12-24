@@ -67,10 +67,6 @@ public class Lion extends Animal
         {
             return 80;
         }
-        else if(a.getInhabitant() instanceof Rabbit)
-        {
-            return 40;
-        }
         return 0;
     }
 

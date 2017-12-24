@@ -84,6 +84,7 @@ public class Grid
                     {
                         board[i][j].setInhabitant(new Rabbit(board[i][j]));
                     }
+
                     else if (random.nextInt(100) < foxChance)
                     {
                         board[i][j].setInhabitant(new Fox(board[i][j]));
@@ -96,7 +97,6 @@ public class Grid
                     {
                         board[i][j].setInhabitant(new Lion(board[i][j]));
                     }
-
                 }
             }
         }
@@ -167,6 +167,10 @@ public class Grid
     // Spawns new Plants with equal probability at every empty Cell.
     public void spawnPlants()
     {
+        if(turnCount > 100)
+            plantDailyChance = 1;
+        if(turnCount > 200)
+            plantDailyChance = 0;
         for(int i = 0; i < GRIDSIZE; i++)
         {
             for (int j = 0; j < GRIDSIZE; j++)

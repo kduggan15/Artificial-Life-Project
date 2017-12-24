@@ -46,7 +46,7 @@ public class Fox extends Animal
     @Override
     public int daysStoredBeforeFull()
     {
-        return 12;
+        return 6;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Fox extends Animal
     {
         if(a.getInhabitant() instanceof Rabbit)
         {
-            return 60;
+            return 40;
         }
         return 0;
     }
@@ -62,7 +62,7 @@ public class Fox extends Animal
     @Override
     public boolean prioritizePrey()
     {
-        if(energy <= energyToAct * 8)
+        if(energy <= energyToAct * 4)
             return true;
         return false;
     }

@@ -61,7 +61,7 @@ public class Rabbit extends Animal
     @Override
     public int daysStoredBeforeFull()
     {
-        return 2;
+        return 6;
     }
 
     @Override

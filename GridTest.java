@@ -88,6 +88,7 @@ public class GridTest extends Application {
             thisCell = world.getCell(i%world.GRIDSIZE,i/world.GRIDSIZE);
             thisOrg = world.getCell(i%world.GRIDSIZE,i/world.GRIDSIZE).getInhabitant();
 
+            thisCell.drawTerrain(gc,effectiveX,effectiveY,SIZE_OF_CELL);
             if(thisOrg!= null)
                 thisOrg.drawMyself(gc,effectiveX,effectiveY,SIZE_OF_CELL);
         }

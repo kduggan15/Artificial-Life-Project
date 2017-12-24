@@ -31,6 +31,13 @@ public abstract class Animal extends Organism
     public abstract int energyFromConsuming(Cell a);
     public abstract Animal makeChild(Cell birthPlace, Cell parent1, Cell parent2);
 
+    public boolean isFull()
+    {
+        if(energy > energyToAct * 5)
+            return true;
+        return false;
+    }
+
     // Returns true if this Animal is ready to mate.
     public boolean readyToMate()
     {
@@ -85,7 +92,7 @@ public abstract class Animal extends Organism
         filter(surroundings);
         
         // If there is any possible Cell to move to...
-        if(nearbyPrey.size() != 0 || surroundings.size() != 0)
+        if( ( (nearbyPrey.size() != 0) && !isFull() ) || surroundings.size() != 0)
         {
             Random random = new Random();
             Cell chosen;

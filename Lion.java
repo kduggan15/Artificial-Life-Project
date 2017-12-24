@@ -20,7 +20,7 @@ public class Lion extends Animal
     private void initialize()
     {
         image = new Image(getClass().getResourceAsStream("lion.png"));
-        energy = 80;
+        energy = 120;
         symbol = 'l';
     }
     
@@ -41,7 +41,7 @@ public class Lion extends Animal
     @Override
     public int getAverageLifeSpan()
     {
-        return 80;
+        return 160;
     }
 
     @Override
@@ -51,21 +51,35 @@ public class Lion extends Animal
     }
 
     @Override
+    public int daysStoredBeforeFull()
+    {
+        return 12;
+    }
+
+    @Override
     public int energyFromConsuming(Cell a)
     {
         if(a.getInhabitant() instanceof Wolf)
         {
-            return 40;
+            return 120;
         }
         else if(a.getInhabitant() instanceof Fox)
         {
-            return 30;
+            return 80;
         }
         else if(a.getInhabitant() instanceof Rabbit)
         {
-            return 20;
+            return 40;
         }
         return 0;
+    }
+
+    @Override
+    public boolean prioritizePrey()
+    {
+        if(energy <= energyToAct * 18)
+            return true;
+        return false;
     }
 }
 

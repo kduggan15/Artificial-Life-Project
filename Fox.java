@@ -21,7 +21,7 @@ public class Fox extends Animal
     private void initialize()
     {
         image = new Image(getClass().getResourceAsStream("fox.png"));
-        energy = 40;
+        energy = 100;
         symbol = 'f';
     }
     
@@ -34,7 +34,7 @@ public class Fox extends Animal
     @Override
     public int getAverageLifeSpan()
     {
-        return 40;
+        return 100;
     }
 
     @Override
@@ -44,12 +44,26 @@ public class Fox extends Animal
     }
 
     @Override
+    public int daysStoredBeforeFull()
+    {
+        return 12;
+    }
+
+    @Override
     public int energyFromConsuming(Cell a)
     {
         if(a.getInhabitant() instanceof Rabbit)
         {
-            return 20;
+            return 60;
         }
         return 0;
+    }
+
+    @Override
+    public boolean prioritizePrey()
+    {
+        if(energy <= energyToAct * 8)
+            return true;
+        return false;
     }
 }

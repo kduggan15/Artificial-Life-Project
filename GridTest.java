@@ -93,7 +93,7 @@ public class GridTest extends Application {
         world.daytime();
         gc.clearRect(0,0,CANVAS_SIZE,CANVAS_SIZE);
         drawGrid(gc);
-        System.out.println(world.toString());
+        // System.out.println(world.toString());
     }
 
     private void skipToEnd(GraphicsContext gc)
@@ -104,7 +104,8 @@ public class GridTest extends Application {
             world.daytime();
         }
         drawGrid(gc);
-        System.out.println("Animals survived "+world.getTurn()+" days");
+        System.out.println(world.summarizeStatistics());
+        System.out.println("Animals survived for "+world.getTurn()+" days!\n");
         //JOptionPane.showMessageDialog(null, ""+world.getTurn(),"Days Lived",JOptionPane.INFORMATION_MESSAGE);
     }
 

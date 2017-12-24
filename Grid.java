@@ -16,10 +16,10 @@ public class Grid
     // The spawn rates of the ecosystem. A balanced ecosystem is a good one!
     private int plantChance = 30;
     private int plantDailyChance = 2;
-    private int rabbitChance = 20;
+    private int rabbitChance = 25;
     private int foxChance = 10;
     private int wolfChance = 7;
-    private int lionChance = 5;
+    private int lionChance = 3;
     private int rockChance = 2;
 
     // Some fun statistics.
@@ -96,6 +96,7 @@ public class Grid
                     {
                         board[i][j].setInhabitant(new Lion(board[i][j]));
                     }
+
                 }
             }
         }
@@ -176,6 +177,7 @@ public class Grid
                     if (random.nextInt(100) < plantDailyChance)
                     {
                         board[i][j].setInhabitant(new Plant(board[i][j]));
+                        // j = GRIDSIZE;
                     }
                 }
             }
@@ -234,7 +236,7 @@ public class Grid
         output += (plantsEaten + " plants were eaten.\n");
         output += (rabbitsMunched + " rabbits were munched.\n");
         output += (foxesDevoured + " foxes were devoured.\n");
-        output += (wolvesFeastedOn + " wolves were feasted on.\n");
+        output += (wolvesFeastedOn + " wolves were feasted on.");
         return output;
     }
 

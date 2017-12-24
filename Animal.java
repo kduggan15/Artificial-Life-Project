@@ -31,9 +31,14 @@ public abstract class Animal extends Organism
     public abstract int energyFromConsuming(Cell a);
     public abstract Animal makeChild(Cell birthPlace, Cell parent1, Cell parent2);
 
+    public int daysStoredBeforeFull()
+    {
+        return 7;
+    }
+
     public boolean isFull()
     {
-        if(energy > energyToAct * 5)
+        if(energy > energyToAct * daysStoredBeforeFull())
             return true;
         return false;
     }

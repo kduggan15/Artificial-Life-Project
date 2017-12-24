@@ -72,4 +72,15 @@ public class Cell
         terrain = terra;
     }
 
+    public void drawTerrain(GraphicsContext gc, int x, int y, int cellSize)
+    {
+        Image image;
+        if(terrain == Terrain.PLAINS)
+            image = new Image(getClass().getResourceAsStream("plains.png"));
+        else if(terrain == Terrain.MOUNTAINS)
+            image = new Image(getClass().getResourceAsStream("mountains.png"));
+        else
+            image = new Image(getClass().getResourceAsStream("rocks.jpg"));
+        gc.drawImage(image, x, y, cellSize, cellSize);
+    }
 }

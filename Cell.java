@@ -27,7 +27,7 @@ public class Cell
         else if(terrain == Terrain.MOUNTAINS)
             image = new Image(getClass().getResourceAsStream("mountains.png"));
         else
-            image = new Image(getClass().getResourceAsStream("rocks.jpg"));
+            image = new Image(getClass().getResourceAsStream("rocks.png"));
     }
 
     // Returns the inhabitant of this Cell (null if there is no inhabitant).

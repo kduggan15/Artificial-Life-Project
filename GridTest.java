@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
+import javax.swing.*;
 //import javafx.*;
 
 
@@ -51,6 +53,23 @@ public class GridTest extends Application {
             }
         });
         vbox.getChildren().addAll(buttonNext);//Add a button to vbox
+
+        Button buttonSkip = new Button("Skip to Extinction");//create a button
+        buttonSkip.setPrefSize(100, 20);
+        buttonSkip.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                while(!world.allAnimalsHaveDied())
+                {
+                    System.out.println(world.toString());
+                    world.daytime();
+                }
+                drawGrid(gc);
+                JOptionPane.showMessageDialog(null, ""+world.getTurn(),"Days Lived",JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        vbox.getChildren().addAll(buttonSkip);//Add a button to vbox
 
         border.setRight(vbox);//put the vbox in the borderpane
 

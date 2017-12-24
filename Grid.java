@@ -322,4 +322,9 @@ public class Grid
     {
         return board[x][y];
     }
+
+    public int getTurn()
+    {
+        return turnCount;
+    }
 }

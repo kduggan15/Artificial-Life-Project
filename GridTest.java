@@ -47,10 +47,7 @@ public class GridTest extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                world.daytime();
-                gc.clearRect(0,0,CANVAS_SIZE,CANVAS_SIZE);
-                drawGrid(gc);
-                System.out.println(world.toString());
+                updateWorld(gc);
             }
         });
         vbox.getChildren().addAll(buttonNext);//Add a button to vbox
@@ -68,17 +65,27 @@ public class GridTest extends Application {
         stage.show();
     }
 
+    private void updateWorld(GraphicsContext gc)
+    {
+        world.daytime();
+        gc.clearRect(0,0,CANVAS_SIZE,CANVAS_SIZE);
+        drawGrid(gc);
+        System.out.println(world.toString());
+    }
+
     private void drawGrid(GraphicsContext gc)
     {
         final int SIZE_OF_CELL = CANVAS_SIZE/world.GRIDSIZE;
         int effectiveX;
         int effectiveY;
         Organism thisOrg;
+        Cell thisCell;
         for(int i=0; i<world.GRIDSIZE*world.GRIDSIZE;i++)
         {
 
             effectiveX=(i*(SIZE_OF_CELL))%CANVAS_SIZE;
             effectiveY=((i/world.GRIDSIZE)*SIZE_OF_CELL);
+            thisCell = world.getCell(i%world.GRIDSIZE,i/world.GRIDSIZE);
             thisOrg = world.getCell(i%world.GRIDSIZE,i/world.GRIDSIZE).getInhabitant();
 
             if(thisOrg!= null)

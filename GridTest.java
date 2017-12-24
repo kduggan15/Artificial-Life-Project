@@ -55,7 +55,7 @@ public class GridTest extends Application {
         vbox.getChildren().addAll(buttonNext);//Add a button to vbox
 
 
-        Button buttonSkip = new Button("Skip to Extinction");//create a button
+        Button buttonSkip = new Button("Skip to End");//create a button
         buttonSkip.setPrefSize(100, 20);
         buttonSkip.setOnAction(new EventHandler<ActionEvent>() {
 

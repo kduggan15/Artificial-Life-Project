@@ -112,6 +112,7 @@ public abstract class Animal extends Organism
                 energy += energyFromConsuming(chosen);
                 chosen.getInhabitant().die();
             }
+            chosen.empty();
             myCell.getMyGrid().moveAnimal(myCell, chosen);
             myCell = chosen;
         }

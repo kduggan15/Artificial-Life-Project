@@ -54,25 +54,18 @@ public class GridTest extends Application {
         });
         vbox.getChildren().addAll(buttonNext);//Add a button to vbox
 
-        /*
+
         Button buttonSkip = new Button("Skip to Extinction");//create a button
         buttonSkip.setPrefSize(100, 20);
         buttonSkip.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                while(!world.allAnimalsHaveDied())
-                {
-                    System.out.println(world.toString());
-                    world.daytime();
-                }
-                drawGrid(gc);
-                JOptionPane.showMessageDialog(null, ""+world.getTurn(),"Days Lived",JOptionPane.INFORMATION_MESSAGE);
+                skipToEnd(gc);
             }
         });
         vbox.getChildren().addAll(buttonSkip);//Add a button to vbox
 
-        */
         border.setRight(vbox);//put the vbox in the borderpane
 
 
@@ -93,6 +86,18 @@ public class GridTest extends Application {
         gc.clearRect(0,0,CANVAS_SIZE,CANVAS_SIZE);
         drawGrid(gc);
         System.out.println(world.toString());
+    }
+
+    private void skipToEnd(GraphicsContext gc)
+    {
+        while(!world.allAnimalsHaveDied())
+        {
+            //System.out.println(world.toString());
+            world.daytime();
+        }
+        drawGrid(gc);
+        System.out.println("Lived "+world.getTurn());
+        //JOptionPane.showMessageDialog(null, ""+world.getTurn(),"Days Lived",JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void drawGrid(GraphicsContext gc)

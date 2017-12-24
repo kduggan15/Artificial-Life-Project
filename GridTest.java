@@ -93,7 +93,7 @@ public class GridTest extends Application {
         world.daytime();
         gc.clearRect(0,0,CANVAS_SIZE,CANVAS_SIZE);
         drawGrid(gc);
-        System.out.println(world.toString());
+        //System.out.println(world.toString());
     }
 
     private void skipToEnd(GraphicsContext gc)

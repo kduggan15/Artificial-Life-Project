@@ -5,6 +5,7 @@ public class DNA
     private final double dailyEnergyMultiplier;
     private final double lifeSpanMultiplier;
 
+
     // Generates random DNA.
     public DNA()
     {

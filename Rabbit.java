@@ -29,7 +29,7 @@ public class Rabbit extends Animal
     @Override
     public int getAverageLifeSpan()
     {
-        return 40;
+        return 60;
     }
 
     @Override

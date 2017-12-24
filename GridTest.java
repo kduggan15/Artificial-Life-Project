@@ -27,7 +27,7 @@ public class GridTest extends Application {
 
         world = new Grid();
 
-        stage.setTitle("Hello World!");
+        stage.setTitle("Artificial Life Project by Vagan Grigoryan, Ricky Valdes, Kieran Duggan");
 
         BorderPane border = new BorderPane();
 

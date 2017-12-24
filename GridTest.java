@@ -46,7 +46,6 @@ public class GridTest extends Application {
         Button buttonNext = new Button("Next Day");//create a button
         buttonNext.setPrefSize(100, 20);
         buttonNext.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
                 updateWorld(gc);
@@ -58,13 +57,22 @@ public class GridTest extends Application {
         Button buttonSkip = new Button("Skip to End");//create a button
         buttonSkip.setPrefSize(100, 20);
         buttonSkip.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
                 skipToEnd(gc);
             }
         });
         vbox.getChildren().addAll(buttonSkip);//Add a button to vbox
+
+        Button buttonRestart = new Button("Restart");//create a button
+        buttonRestart.setPrefSize(100, 20);
+        buttonRestart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                restart(gc);
+            }
+        });
+        vbox.getChildren().addAll(buttonRestart);//Add a button to vbox
 
         border.setRight(vbox);//put the vbox in the borderpane
 
@@ -98,6 +106,12 @@ public class GridTest extends Application {
         drawGrid(gc);
         System.out.println("Animals survived "+world.getTurn()+" days");
         //JOptionPane.showMessageDialog(null, ""+world.getTurn(),"Days Lived",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void restart(GraphicsContext gc)
+    {
+        world = new Grid();
+        drawGrid(gc);
     }
 
     private void drawGrid(GraphicsContext gc)

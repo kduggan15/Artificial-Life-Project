@@ -80,6 +80,7 @@ public class GridTest extends Application {
 
         Scene scene = new Scene(border);
         stage.setScene(scene);
+        scene.getStylesheets().add(GridTest.class.getResource("styling.css").toExternalForm());
         stage.setTitle("Artificial Life Project");
         stage.show();
     }

@@ -29,7 +29,7 @@ public class GridTest extends Application {
 
         world = new Grid();
 
-        stage.setTitle("Artificial Life Project by Vagan Grigoryan, Ricky Valdes, Kieran Duggan");
+        stage.setTitle("Artificial Life Project by Vagan Grigoryan, Ricky Valdez, Kieran Duggan");
 
         BorderPane border = new BorderPane();
 
@@ -54,6 +54,7 @@ public class GridTest extends Application {
         });
         vbox.getChildren().addAll(buttonNext);//Add a button to vbox
 
+        /*
         Button buttonSkip = new Button("Skip to Extinction");//create a button
         buttonSkip.setPrefSize(100, 20);
         buttonSkip.setOnAction(new EventHandler<ActionEvent>() {
@@ -71,6 +72,7 @@ public class GridTest extends Application {
         });
         vbox.getChildren().addAll(buttonSkip);//Add a button to vbox
 
+        */
         border.setRight(vbox);//put the vbox in the borderpane
 
 

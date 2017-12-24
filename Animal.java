@@ -55,13 +55,13 @@ public abstract class Animal extends Organism
         energy -= energyToAct;
         
         // Gathers surroundings Cells.
-        ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);//TODO:This structure is bad, but whatever
+        ArrayList<Cell> surroundings = myCell.getMyGrid().getAdjacentCells(myCell);
         
         // Gathers nearby prey.
         ArrayList<Cell> nearbyPrey = isolatePrey(surroundings);
         
         // Reproduction
-        if(readyToMate()) // TODO:Adding a chance to breed might be good
+        if(readyToMate())
         {
             // Gathers nearby Animals of the same type.
             ArrayList<Cell> nearbyMates = isolateMates(surroundings);

@@ -15,7 +15,7 @@ public class Grid
     
     // The spawn rates of the ecosystem. A balanced ecosystem is a good one!
     private int plantChance = 30;
-    private int plantDailyChance = 1;
+    private int plantDailyChance = 3;
     private int rabbitChance = 20;
     private int foxChance = 10;
     private int wolfChance = 7;

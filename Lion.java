@@ -23,6 +23,14 @@ public class Lion extends Animal
         energy = 80;
         symbol = 'l';
     }
+    
+    @Override
+    public void filter(ArrayList<Cell> input)
+    {
+        filterRocks(input);
+        filterMountains(input);
+        filterAnimals(input);
+    }
 
     @Override
     public Lion makeChild(Cell birthPlace, Cell parent1, Cell parent2)

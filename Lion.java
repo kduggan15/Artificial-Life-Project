@@ -19,6 +19,7 @@ public class Lion extends Animal
 
     private void initialize()
     {
+        image = new Image(getClass().getResourceAsStream("lion.png"));
         energy = 80;
         symbol = 'l';
     }
@@ -57,13 +58,6 @@ public class Lion extends Animal
             return 20;
         }
         return 0;
-    }
-
-    @Override
-    public void drawMyself(GraphicsContext gc, int x, int y, int cellSize)
-    {
-        Image image = new Image(getClass().getResourceAsStream("lion.png"));
-        gc.drawImage(image, x, y, cellSize, cellSize);
     }
 }
 

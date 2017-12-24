@@ -19,6 +19,7 @@ public class Wolf extends Animal
 
     private void initialize()
     {
+        image = new Image(getClass().getResourceAsStream("wolf.png"));
         energy = 60;
         symbol = 'w';
     }
@@ -53,12 +54,5 @@ public class Wolf extends Animal
             return 20;
         }
         return 0;
-    }
-
-    @Override
-    public void drawMyself(GraphicsContext gc, int x, int y, int cellSize)
-    {
-        Image image = new Image(getClass().getResourceAsStream("wolf.png"));
-        gc.drawImage(image, x, y, cellSize, cellSize);
     }
 }

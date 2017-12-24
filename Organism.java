@@ -1,4 +1,5 @@
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public abstract class Organism {
     protected Cell myCell;
@@ -8,6 +9,7 @@ public abstract class Organism {
     protected char symbol;
     protected int lifeSpan;
     protected boolean alive;
+    Image image;
 
     // Initializes an Organism that is aware of which Cell it exists in.
     public Organism(Cell myCell)
@@ -45,8 +47,8 @@ public abstract class Organism {
         return alive;
     }
 
-    public void drawMyself(GraphicsContext gc, int x, int y,int cellSize)
+    public void drawMyself(GraphicsContext gc, int x, int y, int cellSize)
     {
-
+        gc.drawImage(image, x, y, cellSize, cellSize);
     }
 }

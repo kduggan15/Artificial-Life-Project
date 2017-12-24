@@ -10,17 +10,11 @@ public class Plant extends Organism
         energy = 20;
         symbol = '#';
         lifeSpan = 20;
+        image = new Image(getClass().getResourceAsStream("plant.png"));
     }
 
     public void act()
     {
 
-    }
-
-    @Override
-    public void drawMyself(GraphicsContext gc, int x, int y, int cellSize)
-    {
-        Image image = new Image(getClass().getResourceAsStream("plant.png"));
-        gc.drawImage(image, x, y, cellSize, cellSize);
     }
 }

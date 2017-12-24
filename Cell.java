@@ -8,6 +8,7 @@ public class Cell
     private Terrain terrain;
     private Location location;
     private Organism inhabitant;
+    Image image;
 
     // Initializes a Cell that is empty (no inhabitant).
     public Cell(Grid myGrid, Terrain terrain, Location location)
@@ -15,6 +16,12 @@ public class Cell
         this.myGrid = myGrid;
         this.terrain = terrain;
         this.location = location;
+        if(terrain == Terrain.PLAINS)
+            image = new Image(getClass().getResourceAsStream("plains.png"));
+        else if(terrain == Terrain.MOUNTAINS)
+            image = new Image(getClass().getResourceAsStream("mountains.png"));
+        else
+            image = new Image(getClass().getResourceAsStream("rocks.jpg"));
         inhabitant = null;
     }
 
@@ -77,13 +84,6 @@ public class Cell
 
     public void drawTerrain(GraphicsContext gc, int x, int y, int cellSize)
     {
-        Image image;
-        if(terrain == Terrain.PLAINS)
-            image = new Image(getClass().getResourceAsStream("plains.png"));
-        else if(terrain == Terrain.MOUNTAINS)
-            image = new Image(getClass().getResourceAsStream("mountains.png"));
-        else
-            image = new Image(getClass().getResourceAsStream("rocks.jpg"));
         gc.drawImage(image, x, y, cellSize, cellSize);
     }
 }

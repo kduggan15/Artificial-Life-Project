@@ -75,12 +75,7 @@ public abstract class Animal extends Organism
                     Random random = new Random();
                     Cell myMate = chooseMate(nearbyMates);
                     Cell chosenBirthplace = surroundings.get(random.nextInt(surroundings.size()));
-                    if(myCell.getInhabitant() == null)
-                    {
-                        System.out.println("Big problems bro.");
-                    }
                     chosenBirthplace.setInhabitant(makeChild(chosenBirthplace, myCell, myMate));
-                    System.out.println("Making a baby!");
                     return;
                 }
             }
@@ -153,11 +148,8 @@ public abstract class Animal extends Organism
         ArrayList<Cell> nearbyMates = new ArrayList<Cell>();
         for(int i = 0; i < input.size(); i++)
         {
-            //this.getClass();
-            //System.out.println(""+i+"/"+input.size());
             if (input.get(i).getInhabitant()!=null)//stop from checking null spaces
                 if(this.getClass().equals(input.get(i).getInhabitant().getClass()))
-                //if(input.get(i) instanceof this.getClass())
                 {
                     // Ensure the mate is ready.
                     if(( (Animal)(input.get(i).getInhabitant()) ).readyToMate())
@@ -173,7 +165,8 @@ public abstract class Animal extends Organism
         int chosenIndex = 0;
         for(int i = 1; i < input.size(); i++)
         {
-            if(((Animal)input.get(i).getInhabitant()).getDNA().computeDNAStrength() > ((Animal)input.get(i).getInhabitant()).getDNA().computeDNAStrength())
+            if(((Animal)input.get(i).getInhabitant()).getDNA().computeDNAStrength() > 
+            ((Animal)input.get(i).getInhabitant()).getDNA().computeDNAStrength())
                 chosenIndex = i;
         }
         return input.get(chosenIndex);

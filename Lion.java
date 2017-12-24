@@ -50,6 +50,10 @@ public class Lion extends Animal
         }
         else if(a.getInhabitant() instanceof Fox)
         {
+            return 30;
+        }
+        else if(a.getInhabitant() instanceof Rabbit)
+        {
             return 20;
         }
         return 0;

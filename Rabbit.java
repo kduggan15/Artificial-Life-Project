@@ -21,7 +21,7 @@ public class Rabbit extends Animal
 
     private void initialize()
     {
-        image = new Image(getClass().getResourceAsStream("rabbit.jpg"));
+        image = new Image(getClass().getResourceAsStream("rabbit.png"));
         energy = 20;
         symbol = '!';
     }

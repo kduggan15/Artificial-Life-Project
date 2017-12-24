@@ -80,7 +80,7 @@ public class GridTest extends Application {
 
         Scene scene = new Scene(border);
         stage.setScene(scene);
-        stage.setTitle("Layout Sample");
+        stage.setTitle("Artificial Life Project");
         stage.show();
     }
 

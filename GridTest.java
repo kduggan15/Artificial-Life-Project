@@ -96,7 +96,7 @@ public class GridTest extends Application {
             world.daytime();
         }
         drawGrid(gc);
-        System.out.println("Lived "+world.getTurn());
+        System.out.println("Animals survived "+world.getTurn()+" days");
         //JOptionPane.showMessageDialog(null, ""+world.getTurn(),"Days Lived",JOptionPane.INFORMATION_MESSAGE);
     }
 

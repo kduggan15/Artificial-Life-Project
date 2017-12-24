@@ -82,7 +82,7 @@ public class GridTest extends Application {
             thisOrg = world.getCell(i%world.GRIDSIZE,i/world.GRIDSIZE).getInhabitant();
 
             if(thisOrg!= null)
-                thisOrg.drawMyself(gc,effectiveX,effectiveY);
+                thisOrg.drawMyself(gc,effectiveX,effectiveY,SIZE_OF_CELL);
         }
     }
 }

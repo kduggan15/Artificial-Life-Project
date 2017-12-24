@@ -45,7 +45,7 @@ public abstract class Organism {
         return alive;
     }
 
-    public void drawMyself(GraphicsContext gc, int x, int y)
+    public void drawMyself(GraphicsContext gc, int x, int y,int cellSize)
     {
 
     }

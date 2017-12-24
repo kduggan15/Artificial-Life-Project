@@ -52,7 +52,7 @@ public class Fox extends Animal
     }
 
     @Override
-    public void drawMyself(GraphicsContext gc, int x, int y)
+    public void drawMyself(GraphicsContext gc, int x, int y, int cellSize)
     {
         gc.setFill(Color.GREEN);
         gc.setStroke(Color.BLUE);
